@@ -3,6 +3,6 @@
  * [[KernelStartup]]
  * [[KernelThreads]]
  * [[KernelSync]]
-
+ * [[KernelVmMap]]
  * [[KernelMemoryMap]]
  * [[KernelUnix]]
