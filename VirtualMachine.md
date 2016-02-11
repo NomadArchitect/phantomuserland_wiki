@@ -5,5 +5,6 @@
  * [[VmDynamicCall]]
  * [[InternalMethodWritingGuide]]
  * [[Satellites]]
+ * [[VmClassLookup]]
  * [[KernelObjectInterface]] - how kernel can access VM objects
  * [[ObjectKernelConnector]] - how VM objects can access kernel 
