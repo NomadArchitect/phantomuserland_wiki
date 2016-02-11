@@ -4,7 +4,8 @@ Welcome to the phantomuserland wiki!
 Brief directory:
 
  * [[HowToTakePart]]
- * [[CodingStyle]]
- * [[PhantomArchitecture]]
- * [[RoadMap]]
+ * [[PhantomArchitecture]] - Overview
+ * [[RoadMap]] - General task list
+ * [[Kernel]] - Kernel programming howto articles
+ * [[CodingStyle]] - In short
 
