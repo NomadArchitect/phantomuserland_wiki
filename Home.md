@@ -1,6 +1,6 @@
 Welcome to the phantomuserland wiki!
 
 
-Breef directory:
+Brief directory:
 
-CodingStyle
+[[CodingStyle]]
