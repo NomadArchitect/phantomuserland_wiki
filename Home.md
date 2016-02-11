@@ -6,7 +6,8 @@ Brief directory:
  * [[HowToTakePart]]
  * [[PhantomArchitecture]] - Overview
  * [[RoadMap]] - General task list
- * [[Kernel]] - Kernel programming howto articles
  * [[CodingStyle]] - In short
  * [[PhantomTestEnvironment]] - hosted env to run Phantom userland code
+ * [[Kernel]] - Kernel design and programming howto articles
+ * [[VirtualMachine]] - VM design and programming howto articles
 
