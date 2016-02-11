@@ -2,6 +2,7 @@
 
  * [[KernelStartup]]
  * [[KernelThreads]]
+ * [[KernelTime]]
  * [[KernelSync]]
  * [[KernelVmMap]]
  * [[KernelMemoryMap]]
