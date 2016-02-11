@@ -3,5 +3,6 @@ Welcome to the phantomuserland wiki!
 
 Brief directory:
 
-[[HowToTakePart]]
-[[CodingStyle]]
+ * [[HowToTakePart]]
+ * [[CodingStyle]]
+ * [[PhantomArchitecture]]
