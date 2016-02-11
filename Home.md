@@ -10,4 +10,4 @@ Brief directory:
  * [[PhantomTestEnvironment]] - hosted env to run Phantom userland code
  * [[Kernel]] - Kernel design and programming howto articles
  * [[VirtualMachine]] - VM design and programming howto articles
-
+ * [[Running]] - Running Phantom in QEMU or on real hardware
