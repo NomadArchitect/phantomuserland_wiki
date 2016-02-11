@@ -16,8 +16,3 @@ Any object can have any number of chained related objects called [[Satellites]].
 
 Q: chained? Or just use array so that _satellites points to array, and it has all of satellites? Or even point_satellites to satellite as long as we have just one?
 
-Other possible satellites are:
-
-  * mutex/sema object for implementing java-like sync primitives;
-  * container object to hold data invisibly attached by some user/class
-  * owner or rights
