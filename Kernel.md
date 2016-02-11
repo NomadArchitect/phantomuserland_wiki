@@ -1,5 +1,6 @@
 ## Kernel programming topics ##
 
+ * [[KernelStartup]]
  * [[KernelSync]]
 
 
