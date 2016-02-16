@@ -7,21 +7,23 @@ To produce distributable alpha-level OS which can be programmed for by 3rd party
 
 Quite crirtical tasks.
 
-|**Java bytecode compiler**. Currently can compile very simple code. Need complete compiler and classpath. At least to the level where simple Web server can be implemented.|**Hi priority.**|
+|Topic|State|
 |:------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| **Java bytecode compiler**. Currently can compile very simple code. Need complete compiler and classpath. At least to the level where simple Web server can be implemented. See [Java-Compiler-0.5 milestone](https://github.com/dzavalishin/phantomuserland/milestones/Java-Compiler-0.5)| **Hi priority.** |
 |**Hosted test env. multithreading**. Port existing threads lib to work in unix userland/cygwin.|Must be easy.|
 |**Hosted test env. TCP access**.|Ditto.|
 |Windowing events, input, event thread pools. Need userland iface. Need code cleanup.|**In progress**.|
-|**VM and compiler support for floats/doubles/64 bit ints**. **In progress**.|- |
-|**More of Phantom language implementation in compiler**. Closures, direct containers support.|- |
+|**VM and compiler support for floats/doubles/64 bit ints**.|**In progress**.|
+|**More of Phantom language implementation in compiler**. Closures, direct containers support.|Actual?|
 |**VmWeakRef** - stuck with synchronization!|**In progress**|
 |**Border objects and restart exceptions**. Especially for TCP interfaces. Depends on weakrefs!|**Nearly done**|
 
 
 ## Kernel Tasks ##
 
-|**VirtIO drivers**. Have incomplete disk driver, net driver in progress.|Finish it!|
-|:-----------------------------------------------------------------------|:------|
+|Topic|State|
+|:------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+|**VirtIO drivers**. Have working disk driver, net driver in progress. Kernel hangs if using virtio driver for paging.|Finish it!|
 |**IDE driver cleanup**. Existing driver is very strange.|**started**|
 |**IP stack tests and userland interface**.|- |
 |**ARM port**. Machdep code and some drivers are done.|In progress|
@@ -30,10 +32,11 @@ Quite crirtical tasks.
 
 ## Far Goals ##
 
+|Topic|State|
+|:------------------------------------------------------------------------------------------------------------------------------|:-----------------|
 |**Graphical shell**. Something to start with.|Nope.|
-|:--------------------------------------------|:----|
 |**Posix support**. Map two binary objects to DS/CS, run native thread, support syscall mapping.|**Partially working.**|
-|**LLVM fast code**. In addition to posix subsystem it would be nice to have a specific LLVM subsystem which can offer programmers hispeed, but portable (to Phantom on other arch) programming framework. The same CS/DS binary objects, but executable code is LLVM-level and passed through LLVM backend before being run for the first time.|Sompe tests in plc.|
+|**LLVM fast code**. In addition to posix subsystem it would be nice to have a specific LLVM subsystem which can offer programmers hispeed, but portable (to Phantom on other arch) programming framework. The same CS/DS binary objects, but executable code is LLVM-level and passed through LLVM backend before being run for the first time. See [LlvmCodegen.java](https://github.com/dzavalishin/phantomuserland/blob/master/tools/plc/src/ru/dz/plc/compiler/LlvmCodegen.java)|Sompe tests in plc.|
 |**OpenGL**. In fact, it is quite easy to get TinyGL working (it is already done for kernel), but we need a clean userland interface and understanding of interoperation for multiiple simult. threads doing GL rendering in a same env.|Just an userland lib?|
 |**Sound drivers**. At least some very simple AC97 wave output one?|**In progress**|
 |**Video codecs environment**. Seems to be requiring Posix/LLVM support first. The first goal is to be able to give it an MPEG binary for playing.|**Quite near now**|
