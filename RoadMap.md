@@ -23,7 +23,7 @@ Quite crirtical tasks.
 
 |Topic|State|
 |:------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-|**VirtIO drivers**. Have working disk driver, net driver in progress. Kernel hangs if using virtio driver for paging.|Finish it!|
+|**VirtIO drivers**. Have working disk driver, net driver in progress. Kernel hangs if using virtio driver for paging. #181 |Finish it!|
 |**IDE driver cleanup**. Existing driver is very strange.|**started**|
 |**IP stack tests and userland interface**.|- |
 |**ARM port**. Machdep code and some drivers are done.|In progress|
