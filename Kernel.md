@@ -16,7 +16,7 @@
 
 ## Guest subsystems ##
 
-[[Unix Box]] - optional Unix/Posix subsystem.
-[[Kolibri Box]] - optional Kolibri OS subsystem. (Weekend fun project:)
+ * [[Unix Box]] - optional Unix/Posix subsystem.
+ * [[Kolibri Box]] - optional Kolibri OS subsystem. (Weekend fun project:)
 
 
