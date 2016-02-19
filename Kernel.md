@@ -12,4 +12,11 @@
 
 ## Architecture specific ##
 
- * [[KernelVM86]]
+ * [[KernelVM86]] - VM86 'real' mode x86 subsystem used for VESA SVGA init code.
+
+## Guest subsystems ##
+
+[[Unix Box]] - optional Unix/Posix subsystem.
+[[Kolibri Box]] - optional Kolibri OS subsystem. (Weekend fun project:)
+
+
