@@ -11,3 +11,5 @@ Brief directory:
  * [[Kernel]] - Kernel design and programming howto articles
  * [[VirtualMachine]] - VM design and programming howto articles
  * [[Running]] - Running Phantom in QEMU or on real hardware
+
+Tools: [[snap-ci.com continuous integration]](https://snap-ci.com/dzavalishin/phantomuserland/branch/master)
