@@ -1,8 +1,5 @@
 ## Historical junk ##
 
-### Screenshots ###
-
-
-
+[[ScreenShots]]
 
 [[TimeLine]]
