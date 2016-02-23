@@ -53,48 +53,39 @@ No operation. This operation does completely nothing.
 
 '''debug'''
 
-
+```
 debug; // just print stacks
-
 debug “we’re busted”; // show message too
-
 debug 33; // no meaning yet
-
 debug 33 “we’re busted”; // together
-
+```
 
 Prints string argument (if any), and top values of integer and object stack. Integer argument (mode) is one byte and upper bit is used internally, so don’t pass anything > 0x7F or < 0 – will be stripped.
 
 
-Bit 0 (& 0x01) of mode byte turns on debug instruction printing.
-
-Bit 1 (& 0x02) turns it off.
+* Bit 0 (& 0x01) of mode byte turns on debug instruction printing.
+* Bit 1 (& 0x02) turns it off.
 
 === Flow control ===
 '''jmp'''
 
-
+```
 jmp label;
-
 // code to jump around
-
 label:
-
+```
 
 Unconditional jump.
 
 
-'''djnz'''
+'''djnz''' - NB! Not implemented.
 
-
+```
 const 10;
-
 loop:
-
 // do something 10 times
-
 djnz loop;
-
+```
 
 Decrement top of int stack. If top of int stack is not zero – jump to label.
 
@@ -104,19 +95,14 @@ Decrement top of int stack. If top of int stack is not zero – jump to label.
 
 '''jz'''
 
-
+```
 repeat:
-
 // calculate while condition
-
 jz done;
-
 // loop body
-
 jmp repeat;
-
 done:
-
+```
 
 While-style loop operator. Jump if top of int stack is zero.
 
@@ -125,57 +111,44 @@ While-style loop operator. Jump if top of int stack is zero.
 
 '''switch shift divisor label…'''
 
-
+```
 // calculate expression on int stack
-
 switch 0 1 case1 case2 case3;
-
 // here we’ll come on default (fall through)
-
 jmp out;
-
 
 case1:
-
 // if expression was 0 we’ll come here
-
 jmp out;
-
 
 case2:
-
 // if expression was 1 we’ll come here
-
 jmp out;
-
 
 case3:
-
 // if expression was 2 we’ll come here
-
 jmp out;
 
-
 out:
-
+```
 
 Top of int stack (popped) is diminished by shift (signed), divided by divisor (unsigned) and is used as offset into the jump address table. If result is out of bounds, operator falls through, else jumps to selected address.
 
 
 '''ret'''
 
-
+```
 ret;
-
+```
 
 Top of object stack is popped and pushed on caller’s stack. If stack is empty null object is pushed to caller. All the exception catchers pushed in this call are discarded.
 
 
 '''call methodIndex numberOfArgs'''
 
-
+```
 call 0 2;
-
+```
 
 Pops '''numberOfArgs''' arguments from object stack, than pops object to call method for.
 
@@ -184,9 +157,9 @@ Calls selected method passing given number of args. Top of integer stack of call
 
 '''sys syscall_number'''
 
-
+```
 sys 0;
-
+```
 
 Executes this (and only this!) object’s embedded method. NB – it is not possible to execute '''sys''' for other object than this because it will render its specialness visible from outside.
 
@@ -204,104 +177,90 @@ Generally, sys is used as the only content of internal class methods.
 
 '''dynamic_invoke'''
 
-
+```
 const «arg val»;
-
 const «arg val»;
-
 const 2; // 2 args
-
 // code to bring this object
-
 const «toString»;
-
 dynamic_invoke<nowiki>;</nowiki>
-
+```
 
 Dynamically invoke method by name.
 
 === Stack manipulations ===
-'''os dup'''
-
+'''os dup''',
 '''is dup'''
 
-
+```
 os dup; // now we have one more whatever it was
-
+```
 
 Duplicate stack top – either object or int.
 
-
-'''os drop'''
-
+'''os drop''',
 '''is drop'''
 
-
+```
 call 0 0;
-
 os drop; // discard return value
-
+```
 
 Delete stack top.
 
-
 '''os pull displacement'''
 
-
+```
 os pull 2;
-
+```
 
 Copy object displacement steps down from top of object stack on top of it. Pull 0 is equal to dup. '''NB! Deprecated!'''
 
 '''load slot_num'''
 
-
+```
 load 3;
-
+```
 
 Load object reference from this object slot (field), push to top of stack.
 
 
 '''save slot_num'''
 
-
+```
 save 3;
-
+```
 
 Pop object reference, store to selected slot (field) of this object.
 
 
 '''get absolute_stack_position'''
 
-
+```
 get 0;
-
+```
 
 Load object from given position of object stack, push to top of stack.
 
 
 '''set absolute_stack_position'''
 
-
+```
 set 0;
-
+```
 
 Pop object, store to selected position of object stack. These two are for the local variables access.
 
 
-'''compose n_objects'''
+'''compose n_objects''' - NB! Not implemented (and never will be?)
 
-
+```
 // code object on stack
-
 summon “internal.class.interface”;
-
 compose 1;
-
 // interface object initialized with 1 code object
-
 // is on stack
-
+```
 
 Top of stack is class object, initializers follow. New object of that class will be constructed, new object slots will be filled with n_objects objects from stack.
 
@@ -313,9 +272,9 @@ Top of stack is class object, initializers follow. New object of that class will
 
 '''decompose'''
 
-
+```
 decompose;
-
+```
 
 Will store on stack all of the fields of top stack object. Number of objects will be pushed to integer stack.
 
@@ -327,106 +286,95 @@ Will store on stack all of the fields of top stack object. Number of objects wil
 
 '''new'''
 
-
+```
+summon_string_class
 new;
+```
 
+Create a new object of given (stack top) class. String, in this case.
+Compiler must henerate code to call constructor.
 
-Create a new object of given (stack top) class. 
-
-'''NB!! What about constructor?!'''
 
 
 '''copy'''
 
-
+```
 copy;
-
+```
 
 Create a copy of top stack object. Same class, same slot values. '''A call to method 3?'''
 
 
 '''os eq'''
 
-
+```
 os eq;
-
+```
 
 Pop and compare two objects on object stack. If they are the same, push non-zero on integer stack, else push zero.
 
 
 '''os neq'''
 
-
+```
 os neq;
-
+```
 
 Pop and compare two objects on object stack. If they are the same, push zero on integer stack, else push non-zero.
 
 
 '''os isnull'''
 
-
+```
 os isnull;
-
+```
 
 Pop object. If it is a null, push non-zero on integer stack, else push zero.
 
 === Exceptions ===
 '''push catcher label'''
 
-
+```
 summon “internal.class.string”;
-
 push catcher string_thrown;
-
 // code
-
 ret;
-
-
 string_thrown:
-
 // on exception of string type we’ll get here
-
 // do cleanup
-
 ret;
+```
 
-
-Top of stack contains class object. Exceptions of that class will be catched here and control will be passed to a label if such exception is thrown. Thrown object will be on stack top in this case. In general no other assumptions about stack state can be done.
+Top of stack must contain class object. Exceptions of that class will be catched here and control will be passed to a label if such exception is thrown. Thrown object will be on stack top in this case. In general no other assumptions about stack state can be done.
 
 
 '''pop catcher'''
 
-
+```
 pop catcher;
+```
 
-
-Last pushed catcher will be deleted.
+Last pushed catcher will be deleted. Note that all method's catchers will be automatically popped on return.
 
 
 '''throw'''
 
-
+```
 const “we have a problem here”;
-
 throw;
-
+```
 
 Object on top of stack is thrown down. If stack is empty - will throw special system-wide object (null?), if already on top of call stack - will kill current thread in a bad way.
 
 === Constants ===
 '''const'''
 
-
+```
 const “hi there”;
-
 // top of '''object''' stack is string object now
-
 const 32656;
-
 // top of '''integer''' stack has 32656 now
-
+```
 
 Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Unicode UTF-8. '''MUST BE PLAIN 2-BYTE UNICODE?'''
 
@@ -434,50 +382,43 @@ Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Uni
 === Summoning ===
 '''summon this'''
 
-
+```
 summon this
-
 // this object is on stack top now
-
+```
 
 Puts '''this''' object reference on stack.
 
 
 '''summon thread'''
 
-
+```
 summon thread
-
 // current thread object is on stack top now
-
+```
 
 Puts current thread object reference on stack.
 
 
 '''summon null'''
 
-
+```
 summon null
-
 // stack top has null object
-
+```
 
 Put null object on stack.
 
 
 '''summon class_name'''
 
-
+```
 summon “internal.class.class”;
-
 summon “internal.class.int”;
-
 summon “internal.class.string”;
-
 summon “internal.class.interface”;
-
 summon “internal.class.code”;
-
+```
 
 Push corresponding class object on stack.
 
@@ -487,59 +428,44 @@ Push corresponding class object on stack.
 NB! Integer stack supports long/float/double operations too.
 
 
-'''prefix_long'''
-
-'''prefix_float'''
-
+'''prefix_long''',
+'''prefix_float''',
 '''prefix_double'''
 
-
+```
 opcode_prefix_double<nowiki>;</nowiki>
-
 i2o;
-
 // '''object''' stack now has .internal.double object
-
+```
 
 These prefixes change default integer type for integer stack operations to corresponding type. Next integer stack operation is performed for given type. If type is 64-bit one (long or double), 2 stack slots are used for each operand or result. Note though, that all compare operations return int no matter which prefix you use.
 
 
-'''fromi'''
-
-'''froml'''
-
-'''fromf'''
-
+'''fromi''',
+'''froml''',
+'''fromf''',
 '''fromd'''
 
-
+```
 const 10<nowiki>;</nowiki>
-
 prefix_float;
-
 fromi<nowiki>;</nowiki>
-
 // '''int''' stack now has float value on top
-
+```
 
 Convert int stack value from given type to current (int by default, or as set by prefix).
 
 
-'''i2o'''
-
+'''i2o''',
 '''o2i'''
 
-
+```
 const 10;
-
 i2o;
-
 // '''object''' stack now has integer object
-
 o2i;
-
 // value of integer object moved to '''integer''' stack
-
+```
 
 These operations can be used to move data between integer and object stacks.
 
@@ -548,105 +474,74 @@ These operations can be used to move data between integer and object stacks.
 
 '''iload slot_num'''
 
-
+```
 iload 3;
-
+```
 
 '''(Not implemented!)''' Load object from this object slot, push to top of integer stack.
 
 
 '''isave slot_num'''
 
-
+```
 isave 3;
-
+```
 
 '''(Not implemented!) '''Pop value from integer stack, store to selected slot of this object.
 
 
-'''isum'''
-
+'''isum''',
 '''imul'''
 
-
+```
 const 10;
-
 const 5;
-
 isum;
-
 // int stack has 15 on top
-
 const 10;
-
 imul;
-
 // int stack has 150 on top
-
+```
 
 Addition and multiplication.
 
 
-'''isubul'''
-
-'''isublu'''
-
-'''idivul'''
-
+'''isubul''',
+'''isublu''',
+'''idivul''',
 '''idivlu'''
 
-
+```
 const 10;
-
 const 5;// top is 5
-
 isubul;// upper from lower, 5 – 10
-
 // here we have -5
-
-
 const 10;
-
 const 5;// top is 5
-
 isublu;// lower from upper, 10 - 5
-
 // here we have 5
-
-
 const 5;
-
 const 10;// top is 10
-
 idivul// = 10 / 5
-
-
 const 10;
-
 const 5;// top is 5
-
-idivlu// = 10 / 5
-
+idivlu // = 10 / 5
+```
 
 Integer subtraction and division.
 
 
-'''ior'''
-
-'''iand'''
-
-'''ixor'''
-
+'''ior''',
+'''iand''',
+'''ixor''',
 '''inot'''
 
 
 Bit wise operations on integer stack top.
 
 
-'''||'''
-
-'''&&'''
-
+'''||''',
+'''&&''',
 '''!'''
 
 
@@ -654,27 +549,15 @@ logical operations on integer stack top.
 
 
 === Not yet described codes ===
-None at the moment.
 
-=== Stuff to implement ===
-'''int 64 bit'''
-
-'''int variable length'''
+The 'lock/unlock' opcodes intended to implement JVM like sycronization. Not implemented.
 
 
-It is possible that all integers and pointers will be 64 bit in phantom in a near future because persistent memory has to be as large as common hard disks are, and gigabytes are not of interest now. We need terabytes to be addressable. OTOH Amd64 ints are still 32 bit.
 
 
-'''float 32/64/80/variable length'''
+== See also ==
 
+[[VM Bootstrap]] - how VM is created on first run of Phantom instance, where no persistent memory state exists.
 
-Looks like a good idea to treat integer stack as binary stack and let it contain everything like strings, floats, long longs and floating point stuff too.
-
-
-== Startup and native code access ==
-
-## See also ##
-
- * [[VM Bootstrap]] - how VM is created on first run of Phantom instance, where no persistent memory state exists.
- * [[ObjectOrdinals]] - .internal.object ordinals
+[[ObjectOrdinals]] - .internal.object ordinals
 
