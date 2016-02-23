@@ -1,0 +1,865 @@
+= Phantom bytecode and virtual machine definition =
+This document describes phantom virtual machine as implemented at this moment, 23 February 2016.
+
+
+Copyright © 2004-2016 Dmitry Zavalishin, dz@dz.ru
+
+== Structure ==
+Phantom virtual machine is a classical stack-based thing. Four stacks exist.
+
+=== Object stack ===
+This is the main stack in a system. Most of operations either work on top of this stack or involve it in some other way. Contains object references only. Each end every method works with own object stack. On method call a new object stack instance is created. Call arguments are passed from callers stack to called method stack. Number of call arguments is passed on integer stack, as described in detail below. On return from method its object stack is discarded, and the topmost object on stack is returned back to caller (pushed on its object stack). If called method’s object stack is empty on return, null object will be pushed on calling method’s stack.
+
+
+Term “stack” below is usually corresponds to object stack, if other stack is not specified explicitly.
+
+=== Integer stack ===
+Integer stack is used to do integer math in a fast way. On method call a new integer stack is created and number of passed (on object stack) arguments is pushed on integer stack. On return integer stack is discarded. No value is returned on integer stack. Integer stack can and will be used to process values of other binary data types, such as float, double, boolean, etc.
+
+=== Exceptions catchers stack ===
+Each method is executed with own catchers stack. See '''push catcher''' and '''pop catcher''' operations below.
+
+=== Call stack ===
+Used for return and exception unwind purposes. This stack’s element has all the current executing method stuff: object, integer and exception stacks, ‘this’ object pointer, return address.
+
+== Object model ==
+Phantom is a strictly object-oriented environment. It means that no global code or data exist. Any code is a method of some class and is executed in object-related environment.
+
+
+No “process” thing exists in Phantom, no process globals and process state exist therefore.
+
+
+There are threads, however, and technically it is possible to associate some data with current thread. No corresponding mechanism exists at this time, though.
+
+
+Thread can be used to reach outside – it can provide executing objects with links to other system resources. No global way to get them exists, so that one can create a thread which will receive partial access to system resources or will get some special/individual replacements for them.
+
+
+The only global stuff accessible to any code is classes of the most general things: integer, string, code object, interface object and object of class “class”. The last one is class for objects, representing class. It can be used to create a new class in runtime.
+
+
+There are two kinds of classes in phantom: general and internal ones. Objects of general classes contain object references '''only'''. Internal class objects can hold some other kind of value, and their methods are implemented in kernel.
+
+
+== Operations ==
+Here are virtual machine instructions described on assembler (phantasm) language level. If you need more details than I give here, look into the interpreter code, please.
+
+=== Strange stuff ===
+'''nop'''
+
+
+No operation. This operation does completely nothing.
+
+
+'''debug'''
+
+
+debug; // just print stacks
+
+debug “we’re busted”; // show message too
+
+debug 33; // no meaning yet
+
+debug 33 “we’re busted”; // together
+
+
+Prints string argument (if any), and top values of integer and object stack. Integer argument (mode) is one byte and upper bit is used internally, so don’t pass anything > 0x7F or < 0 – will be stripped.
+
+
+Bit 0 (& 0x01) of mode byte turns on debug instruction printing.
+
+Bit 1 (& 0x02) turns it off.
+
+=== Flow control ===
+'''jmp'''
+
+
+jmp label;
+
+// code to jump around
+
+label:
+
+
+Unconditional jump.
+
+
+'''djnz'''
+
+
+const 10;
+
+loop:
+
+// do something 10 times
+
+djnz loop;
+
+
+Decrement top of int stack. If top of int stack is not zero – jump to label.
+
+
+'''NB!''' This operation does '''not''' pop integer stack!
+
+
+'''jz'''
+
+
+repeat:
+
+// calculate while condition
+
+jz done;
+
+// loop body
+
+jmp repeat;
+
+done:
+
+
+While-style loop operator. Jump if top of int stack is zero.
+
+
+'''NB!''' This operation '''does''' pop integer stack!
+
+'''switch shift divisor label…'''
+
+
+// calculate expression on int stack
+
+switch 0 1 case1 case2 case3;
+
+// here we’ll come on default (fall through)
+
+jmp out;
+
+
+case1:
+
+// if expression was 0 we’ll come here
+
+jmp out;
+
+
+case2:
+
+// if expression was 1 we’ll come here
+
+jmp out;
+
+
+case3:
+
+// if expression was 2 we’ll come here
+
+jmp out;
+
+
+out:
+
+
+Top of int stack (popped) is diminished by shift (signed), divided by divisor (unsigned) and is used as offset into the jump address table. If result is out of bounds, operator falls through, else jumps to selected address.
+
+
+'''ret'''
+
+
+ret;
+
+
+Top of object stack is popped and pushed on caller’s stack. If stack is empty null object is pushed to caller. All the exception catchers pushed in this call are discarded.
+
+
+'''call methodIndex numberOfArgs'''
+
+
+call 0 2;
+
+
+Pops '''numberOfArgs''' arguments from object stack, than pops object to call method for.
+
+Calls selected method passing given number of args. Top of integer stack of called method will have number of arguments passed. After the return exactly one object (possibly null) will be on the object stack.
+
+
+'''sys syscall_number'''
+
+
+sys 0;
+
+
+Executes this (and only this!) object’s embedded method. NB – it is not possible to execute '''sys''' for other object than this because it will render its specialness visible from outside.
+
+This operation is valid for a very limited number of classes. 
+
+
+Nothing can be guaranteed about sys. As for now all of them return something, but it is not enforced by interpreter. Though, for normal operation sys must return some object or throw an exception.
+
+
+It is possible to pass parameters to sys on int stack and receive some return there as well, which is differs from '''call''', which passes data on object stack only. That is so because '''sys''' does not create a call frame and thus all the current stack data is available to its code.
+
+
+Generally, sys is used as the only content of internal class methods.
+
+
+'''dynamic_invoke'''
+
+
+const «arg val»;
+
+const «arg val»;
+
+const 2; // 2 args
+
+// code to bring this object
+
+const «toString»;
+
+dynamic_invoke<nowiki>;</nowiki>
+
+
+Dynamically invoke method by name.
+
+=== Stack manipulations ===
+'''os dup'''
+
+'''is dup'''
+
+
+os dup; // now we have one more whatever it was
+
+
+Duplicate stack top – either object or int.
+
+
+'''os drop'''
+
+'''is drop'''
+
+
+call 0 0;
+
+os drop; // discard return value
+
+
+Delete stack top.
+
+
+'''os pull displacement'''
+
+
+os pull 2;
+
+
+Copy object displacement steps down from top of object stack on top of it. Pull 0 is equal to dup. '''NB! Deprecated!'''
+
+'''load slot_num'''
+
+
+load 3;
+
+
+Load object reference from this object slot (field), push to top of stack.
+
+
+'''save slot_num'''
+
+
+save 3;
+
+
+Pop object reference, store to selected slot (field) of this object.
+
+
+'''get absolute_stack_position'''
+
+
+get 0;
+
+
+Load object from given position of object stack, push to top of stack.
+
+
+'''set absolute_stack_position'''
+
+
+set 0;
+
+
+Pop object, store to selected position of object stack. These two are for the local variables access.
+
+
+'''compose n_objects'''
+
+
+// code object on stack
+
+summon “internal.class.interface”;
+
+compose 1;
+
+// interface object initialized with 1 code object
+
+// is on stack
+
+
+Top of stack is class object, initializers follow. New object of that class will be constructed, new object slots will be filled with n_objects objects from stack.
+
+
+'''NB!! This operation must be available to objects of classes that permit it explicitly. Corresponding checks must be added.'''
+
+'''NB!! It is better to kill it at all.'''
+
+
+'''decompose'''
+
+
+decompose;
+
+
+Will store on stack all of the fields of top stack object. Number of objects will be pushed to integer stack.
+
+
+'''NB!! This operation must be available to objects of classes that permit it explicitly. Corresponding checks must be added.'''
+
+'''NB!! It is better to kill it at all.'''
+
+
+'''new'''
+
+
+new;
+
+
+Create a new object of given (stack top) class. 
+
+'''NB!! What about constructor?!'''
+
+
+'''copy'''
+
+
+copy;
+
+
+Create a copy of top stack object. Same class, same slot values. '''A call to method 3?'''
+
+
+'''os eq'''
+
+
+os eq;
+
+
+Pop and compare two objects on object stack. If they are the same, push non-zero on integer stack, else push zero.
+
+
+'''os neq'''
+
+
+os neq;
+
+
+Pop and compare two objects on object stack. If they are the same, push zero on integer stack, else push non-zero.
+
+
+'''os isnull'''
+
+
+os isnull;
+
+
+Pop object. If it is a null, push non-zero on integer stack, else push zero.
+
+=== Exceptions ===
+'''push catcher label'''
+
+
+summon “internal.class.string”;
+
+push catcher string_thrown;
+
+// code
+
+ret;
+
+
+string_thrown:
+
+// on exception of string type we’ll get here
+
+// do cleanup
+
+ret;
+
+
+Top of stack contains class object. Exceptions of that class will be catched here and control will be passed to a label if such exception is thrown. Thrown object will be on stack top in this case. In general no other assumptions about stack state can be done.
+
+
+'''pop catcher'''
+
+
+pop catcher;
+
+
+Last pushed catcher will be deleted.
+
+
+'''throw'''
+
+
+const “we have a problem here”;
+
+throw;
+
+
+Object on top of stack is thrown down. If stack is empty - will throw special system-wide object (null?), if already on top of call stack - will kill current thread in a bad way.
+
+=== Constants ===
+'''const'''
+
+
+const “hi there”;
+
+// top of '''object''' stack is string object now
+
+const 32656;
+
+// top of '''integer''' stack has 32656 now
+
+
+Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Unicode UTF-8. '''MUST BE PLAIN 2-BYTE UNICODE?'''
+
+
+=== Summoning ===
+'''summon this'''
+
+
+summon this
+
+// this object is on stack top now
+
+
+Puts '''this''' object reference on stack.
+
+
+'''summon thread'''
+
+
+summon thread
+
+// current thread object is on stack top now
+
+
+Puts current thread object reference on stack.
+
+
+'''summon null'''
+
+
+summon null
+
+// stack top has null object
+
+
+Put null object on stack.
+
+
+'''summon class_name'''
+
+
+summon “internal.class.class”;
+
+summon “internal.class.int”;
+
+summon “internal.class.string”;
+
+summon “internal.class.interface”;
+
+summon “internal.class.code”;
+
+
+Push corresponding class object on stack.
+
+'''NB!! Define implementation! Must go through some thread specific class loader?'''
+
+=== Integer stack operations ===
+NB! Integer stack supports long/float/double operations too.
+
+
+'''prefix_long'''
+
+'''prefix_float'''
+
+'''prefix_double'''
+
+
+opcode_prefix_double<nowiki>;</nowiki>
+
+i2o;
+
+// '''object''' stack now has .internal.double object
+
+
+These prefixes change default integer type for integer stack operations to corresponding type. Next integer stack operation is performed for given type. If type is 64-bit one (long or double), 2 stack slots are used for each operand or result. Note though, that all compare operations return int no matter which prefix you use.
+
+
+'''fromi'''
+
+'''froml'''
+
+'''fromf'''
+
+'''fromd'''
+
+
+const 10<nowiki>;</nowiki>
+
+prefix_float;
+
+fromi<nowiki>;</nowiki>
+
+// '''int''' stack now has float value on top
+
+
+Convert int stack value from given type to current (int by default, or as set by prefix).
+
+
+'''i2o'''
+
+'''o2i'''
+
+
+const 10;
+
+i2o;
+
+// '''object''' stack now has integer object
+
+o2i;
+
+// value of integer object moved to '''integer''' stack
+
+
+These operations can be used to move data between integer and object stacks.
+
+'''NB! What exception is thrown if it is not int?'''
+
+
+'''iload slot_num'''
+
+
+iload 3;
+
+
+'''(Not implemented!)''' Load object from this object slot, push to top of integer stack.
+
+
+'''isave slot_num'''
+
+
+isave 3;
+
+
+'''(Not implemented!) '''Pop value from integer stack, store to selected slot of this object.
+
+
+'''isum'''
+
+'''imul'''
+
+
+const 10;
+
+const 5;
+
+isum;
+
+// int stack has 15 on top
+
+const 10;
+
+imul;
+
+// int stack has 150 on top
+
+
+Addition and multiplication.
+
+
+'''isubul'''
+
+'''isublu'''
+
+'''idivul'''
+
+'''idivlu'''
+
+
+const 10;
+
+const 5;// top is 5
+
+isubul;// upper from lower, 5 – 10
+
+// here we have -5
+
+
+const 10;
+
+const 5;// top is 5
+
+isublu;// lower from upper, 10 - 5
+
+// here we have 5
+
+
+const 5;
+
+const 10;// top is 10
+
+idivul// = 10 / 5
+
+
+const 10;
+
+const 5;// top is 5
+
+idivlu// = 10 / 5
+
+
+Integer subtraction and division.
+
+
+'''ior'''
+
+'''iand'''
+
+'''ixor'''
+
+'''inot'''
+
+
+Bit wise operations on integer stack top.
+
+
+'''||'''
+
+'''&&'''
+
+'''!'''
+
+
+logical operations on integer stack top.
+
+
+=== Not yet described codes ===
+None at the moment.
+
+=== Stuff to implement ===
+'''int 64 bit'''
+
+'''int variable length'''
+
+
+It is possible that all integers and pointers will be 64 bit in phantom in a near future because persistent memory has to be as large as common hard disks are, and gigabytes are not of interest now. We need terabytes to be addressable. OTOH Amd64 ints are still 32 bit.
+
+
+'''float 32/64/80/variable length'''
+
+
+Looks like a good idea to treat integer stack as binary stack and let it contain everything like strings, floats, long longs and floating point stuff too.
+
+
+== Startup and native code access ==
+=== Predefined (object) method ordinals ===
+Here are methods with fixed ordinals. These are mostly methods of 'object' - the very
+
+root class in language. Methods 8-14 are not defined for object in any usable way (will throw on call to them) and exist only to be redefined in other special classes. (That's historical and has no reason now.)
+
+==== 0 - (not implemented) default parameter-less constructor ====
+This method is called automatically on object creation.
+
+==== 1 - (not implemented) finalize ====
+Is called by garbage collector on object disposal
+
+==== 2 - getClass ====
+Returns class of object. 
+
+NB – this is a way to overcome reference-given interface and obtain default interface for the object. This is a problem for interface-based access control scheme implementation.
+
+==== 3 - (not implemented) clone ====
+Returns shallow copy of object.
+
+==== 4 - equals ====
+Returns true if passed object is equal to this.
+
+NB – value comparison is assumed.
+
+==== 5 - toString ====
+Returns object value converted to string.
+
+==== 6 - (not implemented) toXML(Stringbuf out, String tagName, var passed_objects[]) ====
+Method will be generated by compiler, if not defined explicitly. Will '''NEVER''' be inherited! tagName is a name of tag we will output. Calls toXML for all fields. Atomic fields to be represented as parameters? passed_objects are for loop check. If loop - throw.
+
+TODO – use class name as tag?
+
+==== 7 - (not implemented) fromXML(String data) ====
+Method will be generated by compiler, if not defined explicitly. Will '''NEVER''' be inherited! Calls fromXML for all fields with corresponding to tags or parameters names.
+
+==== 8 - (not implemented) 'operator ()' method, default activity ====
+This is a ‘default activity’ method which is often called implicitly by compiler for objects of some predefined system classes. Examples:
+
+* For closure – ??? (not implemented) activate it.
+* For array object – return iterator (not implemented).
+* For iterator – ??? (not implemented) return pointer to object.
+* For class class object – new class( name, data_area_size, interface )
+* For boot class – class load_class( string file_name );
+* For thread – start execution
+
+==== 9 – Secondary activity ====
+* For boot class – code load_method( string file_name ); - '''obsolete, throws'''
+* For array object – ??? (not implemented) return subarray 
+* For string – ??? (not implemented) return substring
+* For class object ??? (not implemented) return interface by number.
+
+==== 10 – Third activity  ====
+* For array object – get_element( index )
+
+==== 11 – Fourth activity  ====
+* For array object – set_element( index ) – extends array
+
+==== 12 - (not implemented) ??? operator ++ ====
+==== 13 - (not implemented) ??? operator -- ====
+==== 14 - (not implemented) ??? operator = ====
+==== 15 – hashCode ====
+Returns integer, used in hash tables.
+
+== Bootstrapping ==
+On the only first startup in its life kernel will load and execute some bootstrap code. It will be running as an (undefined – not visible through usual class/interface objects) method in the context of a special bootstrap object. 
+
+
+Once more: all this stuff is relevant ONLY on the VERY first start up of the system – when persistent virtual memory is completely empty. In this case kernel will create a short number of classes 'manually' (those include all the internal ones, obviously), and save references to all this stuff in a special root object. Then bootstrap object will be created and bootstrap code (method 8 of class “.ru.dz.phantom.system.boot” ) will be run with the bootsrap object as argument.
+
+
+Bootstrap object's class has some pretty useable and more or less unavoidable methods.
+
+
+''All this shit is used just once on the very system startup (once in any instance's life), so I don't mind. :)''
+
+=== Method 8 – load class ===
+Argument is class name – corresponding code will be loaded from boot file system, distributive CD, network or whatever we have and returned as class object. Note that this is what is used (indirectly) as a root class loader by the default boot code.
+
+=== Method 9 – obsolete ===
+Obsolete. Will throw. (Was classless code load.)
+
+=== Method 16 – console print ===
+Prints passed object on console. Great for “hello world” stuff and screw up messages.
+
+=== Method 17 – register class loader ===
+Register the root class loader for the system. It is supposed to be used by system to suck in the rest of the classes it needs to live. Note that usually such a loader registered during startup won't exist forver – for example, in the current kernel it loads from additional boot module which supposed to be not existing during normal OS operation. Normally it must be replaced later with something more clever, like network class loader.
+
+=== Method 18 – create thread ===
+Any object is passed as argument.
+
+Current 'this' object (which is bootstrap object) will be passed as argument to a method started in a new thread.
+
+New thread will execute method 8 of a passed object, wchich, in turn, will be 'tnis' object for executing method, of course.
+
+=== Method 19 – create binary ===
+Creates and returns binary object. Argument is size in bytes. This method is temporary.
+
+=== Method 20 – set screen background ===
+First arg is bitmap. Used to make sure Phantom looks not so ugly early in the bootstrap process. :)
+
+
+''Now to illustrate all this, some examle of bootstrap code:''
+
+
+package .ru.dz.phantom.system;
+
+
+class boot
+
+{
+
+var boot_object;
+
+
+// They call us here
+
+void startup_8 (var _boot_object @const ) [8]
+
+{ 
+
+try { startup( _boot_object ); } 
+
+catch( string e ) 
+
+{
+
+print("\r\nException: '"); print(e); print("'");
+
+}
+
+}
+
+
+void print( var input : string )
+
+{
+
+boot_object.16(input);
+
+}
+
+
+.internal.object load_class( var name : string )
+
+{
+
+return boot_object.8(name);
+
+}
+
+
+void startup (var _boot_object @const )
+
+{
+
+boot_object = _boot_object;
+
+
+print("Phantom Bootloader is running\n");
+
+
+// Now setup class loader for the system
+
+
+// Use boot object to load class loader
+
+loader_class = load_class("ru.dz.phantom.system.class_loader");
+
+// Only indirect new (with class object passed)
+
+// will work here
+
+loader = new *(loader_class)();
+
+loader.init(boot_object);
+
+
+boot_object.17(loader); // register new loader in the system
+
+
+// Since class loader is there, we can
+
+// use 'new' with a class name.
+
+run = new .ru.dz.phantom.system.thread_test();
+
+boot_object.18(run);
+
+}
+
+
