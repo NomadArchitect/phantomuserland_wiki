@@ -2,7 +2,7 @@
 
 ## General ##
 
-Phantom is, basically, a virtual machine (VM) working in a huge persistent
+Phantom is, basically, a virtual machine (VM) working in a huge **persistent**
 virtual memory. Part of the VM classes (some classes, called 'internal') are
 implemented in kernel, giving VM code access to low level kernel services.
 Persistent virtual memory is completely orthogonal to object space and VM
@@ -15,7 +15,7 @@ boot up as if no shutdown ever happened.
 
 ## Persistent memory and snapshots ##
 
-Phantom does regular snapshot of the whole virtual memory. Snapshots are
+Phantom does regular **snapshot** of the whole virtual memory. Snapshots are
 done asycnchronously and without stopping the world, but resulting snapshot
 is synchronous - all the memory is being snapped at the very same moment in
 OS's 'personal' time. It means that snapshot state is captured like if all
