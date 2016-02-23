@@ -1,4 +1,4 @@
-![http://misc.dz.ru/~dz/phantom/Phantom_Structure.png](http://misc.dz.ru/~dz/phantom/Phantom_Structure.png)
+![https://github.com/dzavalishin/phantomuserland/blob/master/doc/diagrams/Phantom_Structure.png?raw=true](https://github.com/dzavalishin/phantomuserland/blob/master/doc/diagrams/Phantom_Structure.png?raw=true)
 
 ## General ##
 
