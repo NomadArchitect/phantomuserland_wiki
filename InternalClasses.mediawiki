@@ -1,0 +1,73 @@
+= Internal classes (implemented) =
+
+== .internal.void ==
+'no class' class – TODO – detach from object!
+
+
+== .internal.object ==
+The very root of all classes. Defines some basic methods: class(), clone(), equals(), toString(), hashcode(), etc.
+
+See [[ObjectOrdinals]]
+
+== .internal.int ==
+integer, char
+
+
+== .internal.string ==
+string, sure. TODO Immutable?
+
+
+== .internal.class == 
+is a class
+
+
+== .internal.interface ==
+Array of methods (does not have to be internal, in fact)
+
+
+== .internal.code ==
+Bytecode executable
+
+
+== .internal.container.array ==
+Basic 'rubber' array implementation
+
+
+== .internal.container.page ==
+Array page, completely internal, not used on compiler level.
+
+
+== .internal.thread ==
+Thread state
+
+
+== .internal.call_frame ==
+Call frame ;)
+
+
+== .internal.[ioe]stack ==
+Integer/object/exception stack
+
+
+== .internal.boot ==
+See boot sequence description. Boot time kernel services: class loader, tty out, thread starter.
+
+
+== .internal.io.tty ==
+Tty style console io class.
+
+
+== .internal.binary ==
+Byte container - actually string is used, as string is binary-friendly. Ok?
+
+== .internal.directory ==
+
+Hash map of string to object. Actually can be made to recieve any type as key.
+
+= Internal classes (not implemented, but really needed) =
+
+== .internal.native.arch_name ==
+Native method code after JIT precompile
+
+
+
