@@ -1,0 +1,95 @@
+== Bootstrapping ==
+
+On the only first startup in its life kernel will load and execute some bootstrap code. It will be running as an (undefined – not visible through usual class/interface objects) method in the context of a special bootstrap object. 
+
+Once more: all this stuff is relevant ONLY on the VERY first start up of the system – when persistent virtual memory is completely empty. In this case kernel will create a short number of classes 'manually' (those include all the internal ones, obviously), and save references to all this stuff in a special root object. Then bootstrap object will be created and bootstrap code (method 8 of class “.ru.dz.phantom.system.boot” ) will be run with the bootsrap object as argument.
+
+Bootstrap object's class has some pretty useable and more or less unavoidable methods.
+
+''All this shit is used just once on the very system startup (once in any instance's life), so I don't mind. :)''
+
+=== Method 8 – load class ===
+Argument is class name – corresponding code will be loaded from boot file system, distributive CD, network or whatever we have and returned as class object. Note that this is what is used (indirectly) as a root class loader by the default boot code.
+
+=== Method 9 – obsolete ===
+Obsolete. Will throw. (Was classless code load.)
+
+=== Method 16 – console print ===
+Prints passed object on console. Great for “hello world” stuff and screw up messages.
+
+=== Method 17 – register class loader ===
+Register the root class loader for the system. It is supposed to be used by system to suck in the rest of the classes it needs to live. Note that usually such a loader registered during startup won't exist forver – for example, in the current kernel it loads from additional boot module which supposed to be not existing during normal OS operation. Normally it must be replaced later with something more clever, like network class loader.
+
+=== Method 18 – create thread ===
+Any object is passed as argument.
+
+Current 'this' object (which is bootstrap object) will be passed as argument to a method started in a new thread.
+
+New thread will execute method 8 of a passed object, wchich, in turn, will be 'tnis' object for executing method, of course.
+
+=== Method 19 – create binary ===
+Creates and returns binary object. Argument is size in bytes. This method is temporary.
+
+=== Method 20 – set screen background ===
+First arg is bitmap. Used to make sure Phantom looks not so ugly early in the bootstrap process. :)
+
+
+Now to illustrate all this, some examle of bootstrap code:
+
+```
+package .ru.dz.phantom.system;
+
+class boot
+{
+
+var boot_object;
+
+// They call us here
+void startup_8 (var _boot_object @const ) [8]
+{ 
+   try { startup( _boot_object ); } 
+   catch( string e ) 
+   {
+       print("\r\nException: '"); print(e); print("'");
+   }
+}
+
+
+void print( var input : string )
+{
+   boot_object.16(input);
+}
+
+
+.internal.object load_class( var name : string )
+{
+   return boot_object.8(name);
+}
+
+
+void startup (var _boot_object @const )
+{
+   boot_object = _boot_object;
+
+   print("Phantom Bootloader is running\n");
+
+   // Now setup class loader for the system
+
+   // Use boot object to load class loader
+   loader_class = load_class("ru.dz.phantom.system.class_loader");
+
+   // Only indirect new (with class object passed)
+   // will work here
+   loader = new *(loader_class)();
+   loader.init(boot_object);
+   boot_object.17(loader); // register new loader in the system
+
+   // Since class loader is there, we can
+   // use 'new' with a class name.
+   run = new .ru.dz.phantom.system.thread_test();
+
+   boot_object.18(run);
+
+}
+```
+
