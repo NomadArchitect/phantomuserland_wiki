@@ -63,3 +63,14 @@ static void final_stop(void);
 STOP_ME( early_stop, prepare_stop, final_stop );
 ```
 
+=== Early Stop ===
+
+VM threads stopped. SMP turned off.
+
+=== Prepare Stop ===
+Stop calling others at this stage.
+
+=== Final Stop ===
+Stop servicing calls.
+
+
