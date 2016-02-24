@@ -2,6 +2,7 @@
 
 One must distinguish first boot of the given OS instance, and later ones. First boot differs because kernel has no snapshot to start from and has to build minimal working environment. Later boots are simple - find actual snapshot and map memory. Well, see details below.
 
+See also: [[KernelInitSubsystem]]
 
 # Kernel boot #
 
