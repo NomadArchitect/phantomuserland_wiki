@@ -378,6 +378,7 @@ const 32656;
 
 Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Unicode UTF-8. '''MUST BE PLAIN 2-BYTE UNICODE?'''
 
+TODO make const pool and '''const_pool id''' operation to instantiate constant from pool
 
 === Summoning ===
 '''summon this'''
