@@ -10,6 +10,16 @@ All binaries are little endian.
 
 {class_rec} - "phfr:" literal, {int8} record type, {int64} record length, record data bytes according to length field
 
+{type-def} - {int32} is_container, {string} class name, {string} contained class name
+
+{arg_sig} - {string} arg name, {type-def}
+
+Record types and structure:
+
+ * 'C': Class name - {string} class name, {int32} n fields in object, {int32} n methods, {string} base class name
+ * 'M': Method - {string} method name, {int32} ordinal, rest is code.
+ * 'l': IP to line num map - pairs of {int32} IP address, {int32} line number
+ * 'S': Method signature - {string} method name, {int32} ordinal, {int32} n args, rest is array of {arg_sig}
+ * 'f': Field names - {string} name, {int32} ordinal, {type_def}
 
 
-{method_def} - {string} = method name
