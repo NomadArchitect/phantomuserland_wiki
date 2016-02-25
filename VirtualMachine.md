@@ -1,6 +1,8 @@
 ## All the virtual machine related stuff ##
 
- * [[VmObjectStructure]]
+ * [[VmStacks]] - stacks
+ * [[ByteCode]] - operations
+ * [[VmObjectStructure]] - runtime object structure
  * [[RefCountStrategy]]
  * [[VmDynamicCall]]
  * [[InternalMethodWritingGuide]]
@@ -9,3 +11,4 @@
  * [[KernelObjectInterface]] - how kernel can access VM objects
  * [[ObjectKernelConnector]] - how VM objects can access kernel 
  * [[InternalClasses]] - list of in-kernel implemented classes (native, in Java terms)
+
