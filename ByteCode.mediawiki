@@ -5,22 +5,8 @@ This document describes phantom virtual machine as implemented at this moment, 2
 Copyright © 2004-2016 Dmitry Zavalishin, dz@dz.ru
 
 == Structure ==
-Phantom virtual machine is a classical stack-based thing. Four stacks exist.
+Phantom virtual machine is a classical stack-based thing. Four stacks exist. See [[VmStacks]] for details.
 
-=== Object stack ===
-This is the main stack in a system. Most of operations either work on top of this stack or involve it in some other way. Contains object references only. Each end every method works with own object stack. On method call a new object stack instance is created. Call arguments are passed from callers stack to called method stack. Number of call arguments is passed on integer stack, as described in detail below. On return from method its object stack is discarded, and the topmost object on stack is returned back to caller (pushed on its object stack). If called method’s object stack is empty on return, null object will be pushed on calling method’s stack.
-
-
-Term “stack” below is usually corresponds to object stack, if other stack is not specified explicitly.
-
-=== Integer stack ===
-Integer stack is used to do integer math in a fast way. On method call a new integer stack is created and number of passed (on object stack) arguments is pushed on integer stack. On return integer stack is discarded. No value is returned on integer stack. Integer stack can and will be used to process values of other binary data types, such as float, double, boolean, etc.
-
-=== Exceptions catchers stack ===
-Each method is executed with own catchers stack. See '''push catcher''' and '''pop catcher''' operations below.
-
-=== Call stack ===
-Used for return and exception unwind purposes. This stack’s element has all the current executing method stuff: object, integer and exception stacks, ‘this’ object pointer, return address.
 
 == Object model ==
 Phantom is a strictly object-oriented environment. It means that no global code or data exist. Any code is a method of some class and is executed in object-related environment.
@@ -78,7 +64,7 @@ label:
 Unconditional jump.
 
 
-'''djnz''' - NB! Not implemented.
+'''djnz'''
 
 ```
 const 10;
@@ -187,6 +173,17 @@ dynamic_invoke<nowiki>;</nowiki>
 ```
 
 Dynamically invoke method by name.
+
+=== Cast ===
+
+```
+// push object to cast
+// push tagret type (class reference)
+cast
+// object reference now refers to specified class's interface
+```
+
+Pops target type from stack, pops object, checks that it has type is among interfaces or parents, pushes object with new interface.
 
 === Stack manipulations ===
 '''os dup''',
@@ -378,7 +375,13 @@ const 32656;
 
 Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Unicode UTF-8. '''MUST BE PLAIN 2-BYTE UNICODE?'''
 
-TODO make const pool and '''const_pool id''' operation to instantiate constant from pool
+'''const_pool'''
+
+```
+const_pool 22;
+```
+
+Load constand numbed 22 from constants pool. Constants pool is loaded from class file.
 
 === Summoning ===
 '''summon this'''
