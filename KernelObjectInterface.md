@@ -1,6 +1,17 @@
+# Kernel to object land interface #
+
+## Problems ##
+
+* If kernel can access any persistent object, garbage collector should not delete such object.
+* That's why reference count of object must be incremented as long as kernel can access it.
+* And must be decremented if kernel looses reference to such object.
+* Abrupt kernel stop (forced rebut or just loss of power) is loss of reference too and must be handled.
+
 ## Design ##
 
-On kernel boot restart list is rebuilt. Old one is moved off and new one initialized. Then old one is processed one item at a time - if item class is internal, special restart C function is called. After that reference is deleted (refcmt decremented), so if that is the last ref, object will die. Restart function can request putting object in new restart list, re-establishing kernel connection somehow, and in this case object will continue to exist.
+Any object kernel can access is acessed through handle, not sirectly by address, and allways added to so called restart list. Restart list is "kernel's reference" to object and this reference makes sure that object will not be gc'ed even if no other object references it.
+
+On kernel boot restart list is rebuilt. Old one is moved off and new one initialized. Then old one is processed one item at a time - if item class is internal, special restart C function is called. After that reference is deleted (refcnt decremented), so if that is the last ref, object will die. Restart function can request putting object in new restart list, re-establishing kernel connection somehow, and in this case object will continue to exist.
 
 Object can be removed from restart list manually, but serious care must be taken to ensure that no one will attempt to access it from kernel after that.
 
@@ -16,11 +27,7 @@ void pvm_remove_object_from_restart_list( pvm_object_t o );
 
 typedef int ko_handle_t;
 
-errno_t  object_assign_handle( ko_handle_t *h, pvm_object_t o );
-errno_t  object_revoke_handle( ko_handle_t h, pvm_object_t o );
 
-
-// These two work after handle is assigned
 errno_t  object2handle( ko_handle_t *h, pvm_object_t o );
 errno_t  handle2object( pvm_object_t *o, ko_handle_t h );
 
@@ -47,10 +54,29 @@ void ko_spawn_method( ko_handle_t *ko_this, int method, int nargs, ko_handle_t *
 
 //! Async call - void, does not wait, calls calback
 void ko_spawn_method_callback( ko_handle_t *ko_this, int method, int nargs, ko_handle_t *args, int flags, void (*callback)( void *cb_arg, ko_handle_t *ret ), void *cb_arg );
+```
+
+## Usage example ##
+
+```
+ko_handle_t h;
+errno_t rc;
+
+rc = object_assign_handle( &h, o ); // got object from VM to kernel call, convert to handle
+
+...
+
+pvm_object_t o2;
+rc = handle2object( &o2, h ); // get object address, increment refcount
+o2.data->... // do something
+rc = handle_release_object( h ); // stop using address, decrement refcount
+
+...
+
+rc = handle_release_object( h ); // finally stop using object at all, decrement refcount and remove from restart list
 
 
 ```
-
 ## Q ##
 
 **Can restart list be compacted? Id reuse?**
