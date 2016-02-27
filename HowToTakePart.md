@@ -1,3 +1,14 @@
+You can help Phantom in a different ways.
+
+Even reading Wiki and asking questions about Phantom architecture will help to make documenttaion better.
+
+It is a good idea to:
+
+* Browse Wiki: [[Home]]
+* Look at [[RoadMap]]
+* Set up build environment
+* Contact us (dz@dz.ru)
+
 Very good start is to do some code review for the part you want to work on, and, possibly, to write some regression tests for it.
 
 Some possible tasks:
@@ -6,7 +17,7 @@ Some possible tasks:
   * Java lib (GNU ClassPath port)
   * Tests!
   * AHCI driver
-  * virtio disk/net drivers
+  * Virtio disk/net drivers
   * USB HC drivers
   * ARM port, MIPS port
 
