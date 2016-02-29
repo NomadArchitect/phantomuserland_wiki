@@ -20,6 +20,8 @@ Checking .internal.directory class operations... new passed
 Finished compiler regression tests
 ```
 
+See also [[Running]]
+
 === Java compiler unit tests ===
 
 Currently are in '''tools/plc/src/test/toPhantom''', but shall come to '''plib/java/src/test/toPhantom''' eventually. Shall be run as above.
