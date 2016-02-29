@@ -1,0 +1,28 @@
+= Building Phantom =
+
+== Basic build ==
+
+Make sure you have PHANTOM_HOME environment variable, makefiles depend on it.
+
+'''make all''' in root dir makes all C sources.
+
+It does not make tests, tools or .ph/.java sources for Phantom userland. Those are pre-built.
+
+== Making tools ==
+
+cd tools
+
+Currently no common way exist. Most tools can be made either with Eclipse (Java sources) or plain make (C sources).
+
+Most tools must be pre-compiled and put to '''build/bin''' or '''build/jar''' directories. You don't have to compile java code if you're not working on it, as it wil run in any environment unchanged.
+
+== Non-Intel ==
+
+In '''local-config.mk''' add:
+
+* ARCH=ia32 - works
+* ARCH=arm - not thumb! original 32-bit ARM, tests pass, no drivers
+* ARCH=mips - not all tests pass
+* ARCH=amd64 - not even compiles
+
+
