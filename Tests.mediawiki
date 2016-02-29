@@ -1,0 +1,41 @@
+= Test instruments and environments =
+
+== Compiler/VM/bytecode ==
+=== VM test environment ===
+
+It is possible to run/debug Phantom VM in user mode, see [[PhantomTestEnvironment]].
+
+=== VM/compiler unit tests ===
+
+There's a special class ru.dz.phantom.system.regression_tests.ph (plib/sys/src/ru.dz) which contains tests for both compiler (.ph frontend and codegen) and virtual machine. These tests are automatically run on every clean start of kernel.
+
+Result can be seen in kernel log ('''run/serial0.log''', QEMU serial port log file)
+
+```
+Phantom language regression tests are running
+Checking flow control operators... passed
+Checking int math... passed
+Checking arrays... Beeping: beep two! beep one! beep zero! passed
+Checking .internal.directory class operations... new passed
+Finished compiler regression tests
+```
+
+=== Java compiler unit tests ===
+
+Currently are in '''tools/plc/src/test/toPhantom''', but shall come to '''plib/java/src/test/toPhantom''' eventually. Shall be run as above.
+
+== Kernel unit tests ==
+
+There are two ways to run kernel code unit tests. 
+
+=== Kernel mode ===
+
+There is an unit-test environment right in kernel, it will be run if kernel is started with '''-test all''' command line parameter, as in '''kernel=(hd0,0)/boot/phantom -d=20 -- -test all''' grub boot command.
+
+=== Hosted mode ===
+
+Some of unit tests can be compiled and run as an user mode application. See /test/unut directory and makefile in /test.
+
+
+
+
