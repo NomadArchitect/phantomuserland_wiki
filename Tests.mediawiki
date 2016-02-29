@@ -3,7 +3,7 @@
 == Compiler/VM/bytecode ==
 === VM test environment ===
 
-It is possible to run/debug Phantom VM in user mode, see [[PhantomTestEnvironment]].
+It is possible to run/debug Phantom VM in user mode ('''pvm_test'''), see [[PhantomTestEnvironment]].
 
 === VM/compiler unit tests ===
 
@@ -36,6 +36,12 @@ There is an unit-test environment right in kernel, it will be run if kernel is s
 
 Some of unit tests can be compiled and run as an user mode application. See /test/unut directory and makefile in /test.
 
+== External tests ==
 
+Directory '''test/external''' contains tool to be run from outside of kernel and communicate with kernel with TCP/UDP.
+
+== Phantom Debugger ==
+
+(Unfinished) debugger lives in '''tools/pdb'''. Again, connects to Phantom VM test env (see pvm_test above). It must connect to real kernel also, TBD.
 
 
