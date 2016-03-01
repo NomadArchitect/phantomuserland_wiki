@@ -1,13 +1,10 @@
-[[Kernel]]
+Parts:
+* [[Kernel]]
+* [[VirtualMachine]]
+* [[Bytecode]]
 
-[[VirtualMachine]]
-
-[[Bytecode]]
-
-[[Building]]
-
-[[Running]]
-
-[[Debugging]]
-
-[[Tests]]
+Tasks:
+* [[Building]]
+* [[Running]]
+* [[Debugging]]
+* [[Tests]]
