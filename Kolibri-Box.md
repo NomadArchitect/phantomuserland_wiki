@@ -2,3 +2,5 @@ Kolibri is an extremely simple and lightweight OS with a terrible architecture. 
 Nevertheless, emulating Kolibri usermode environment was interesting and funny experience and helped a bit to structure kernel code better.
 
 Kolibri fans are welcome to help this subsystem growing.
+
+See `oldtree/kernel/phantom/i386/kolibri.c`
