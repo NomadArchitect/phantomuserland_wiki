@@ -5,10 +5,11 @@
  * [[KernelTime]] - Timers, callouts, timekeeping
  * [[KernelSync]] - Spinlocks, Mutexes, Conds, etc
  * [[KernelVmMap]]
- * [[KernelMemoryMap]]
+ * [[KernelMemoryMap]] - Physical/virtual kernel memory 
  * [[KernelUnix]] - basic POSIX subsystem implementation
  * [[KernelObjectInterface]] - how kernel can access VM objects
- * [[ObjectKernelConnector]] - how VM objects can access kernel 
+ * [[ObjectKernelConnector]] - how VM objects can access kernel
+ * [[KernelDrivers]] - drivers infrastructure and services
 
 ## Architecture specific ##
 
