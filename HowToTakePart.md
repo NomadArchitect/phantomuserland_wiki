@@ -1,6 +1,6 @@
 You can help Phantom in a different ways.
 
-Even reading Wiki and asking questions about Phantom architecture will help to make documenttaion better.
+Even reading Wiki and asking questions about Phantom architecture will help to make documentation better.
 
 It is a good idea to:
 
@@ -29,7 +29,7 @@ General directions to move:
 
   * kernel: lot of stuff is not final or not ideal. See issues tab or contact dz.
 
-  * virtaul machine: it is quite obvious how to put libjit in, and it has to be done. There's quite hard refcount cleanup task as well. Full scale offline mark/sweeep on disk GC has to be written too.
+  * virtual machine: it is quite obvious how to put libjit in, and it has to be done. There's quite hard refcount cleanup task as well. Full scale offline mark/sweep on disk GC has to be written too.
 
   * bytecode translator: jvm to phantom bytecode translator is partially made but is not complete. Really need tests there!
 
