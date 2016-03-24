@@ -1,4 +1,11 @@
-## lprintf/kvprintf additional formats ##
+## functions ##
+
+* kvprintf - general kernel print formatter, needs putc style output func
+* lprintf - prints directly and only to debug console (serial 0 on PC and most builds, goes to QEMU log file too), slow, can work in closed interrupts and interrupt handlers, see `$ARCH/debug_console.c`
+* SHOW_ERROR/SHOW_FLOW/SHOW_INFO - see below, main kernel logging, goes to debug window and debug console
+
+
+## kvprintf additional formats ##
 
 ### %b ###
 
