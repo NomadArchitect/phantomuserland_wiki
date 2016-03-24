@@ -10,6 +10,7 @@
  * [[KernelObjectInterface]] - how kernel can access VM objects
  * [[ObjectKernelConnector]] - how VM objects can access kernel
  * [[KernelDrivers]] - drivers infrastructure and services
+ * [[KernelPrint]] - kernel printing/logging
 
 ## Architecture specific ##
 
