@@ -67,7 +67,13 @@ Hash map of string to object. Actually can be made to recieve any type as key.
 = Internal classes (not implemented, but really needed) =
 
 == .internal.native.arch_name ==
-Native method code after JIT precompile
+Native method code after JIT precompile:
+
+* .internal.native.ia32
+* .internal.native.mips
+* .internal.native.arm
+
+etc
 
 
 
