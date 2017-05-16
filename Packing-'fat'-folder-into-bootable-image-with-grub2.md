@@ -15,12 +15,12 @@ To create bootable Phantom OS image with grub2, we put custom grub.cfg (creation
 Unlike grub-legacy (older grub), menu list is specified in grub.cfg rather than separate menu.lst. 
 Here is an example of first menu entry, ported from original menu.lst:
 
-menuentry 'phantom ALL TESTS' {
-	set root='(hd0,msdos1)'
-	multiboot /boot/phantom -d=20 -- -test all
-	module /boot/classes
-	module /boot/pmod_test
-}
+`menuentry 'phantom ALL TESTS' {`
+	`set root='(hd0,msdos1)'`
+	`multiboot /boot/phantom -d=20 -- -test all`
+	`module /boot/classes`
+	`module /boot/pmod_test`
+`}`
 
 Please note: If you are putting fat folder into image, please comment line `set root='(hd0,msdos1)'`, else replace hd0 with drive and msdos1 with partition, where fat is mounted or it's content is located. You also don't need `boot` line.
 
