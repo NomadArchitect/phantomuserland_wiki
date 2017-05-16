@@ -42,3 +42,4 @@ In short, you just need to put a copy of Phantom disk superblock into the 16-th 
 
 Phantom sends kernel log into serial port, it can help to find out what's wrong if kernel dies.
 
+See also [[Make bootable image with grub2]]
