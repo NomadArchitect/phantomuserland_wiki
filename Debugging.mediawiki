@@ -21,6 +21,8 @@ gdb
 
 gdb will load symbols and connect to running kernel.
 
+Please note macros in '''gdbmacros''' file (oldtree/kernel/phantom).
+
 == PDB Phantom Debugger ==
 
 There is a Java application in tools/pdb, which can connect to running '''pvm_test''' 
