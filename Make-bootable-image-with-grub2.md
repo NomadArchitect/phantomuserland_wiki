@@ -1,3 +1,5 @@
+# Packing 'fat' folder into bootable image with grub2
+
 **caveat emptor**: grub2 currently not supported by Phantom OS. Fixes should be made soon.
 Also, currently there is disk reading troubles with running Phantom using modern QEMU and grub2. 
 
