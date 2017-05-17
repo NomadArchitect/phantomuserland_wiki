@@ -90,3 +90,7 @@ Example for ARM
 #define	SYSCALL(x)	ENTRY(x); ldr r12, = SYS_##x; swi  0x0;
 ```
 
+### varargs.h
+
+May need attention too.
+
