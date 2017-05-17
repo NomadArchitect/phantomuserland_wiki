@@ -25,3 +25,23 @@ phantom/threads/e2k - context switch, cpu state, etc
 phantom/Makeconf-e2k - toolchain setup (names of binaries to build and link)
 oldtree/kernel/Makeconf-e2k - toolchain
 ```
+
+## oldtree/kernel/phantom/ARCH
+
+### entry.S - kernel entry point and basic hardware init
+
+Must init hardware to the state when C code can be run.
+
+After that C function must be called to init kernel - see phantom_multiboot_main for reference.
+
+Must init:
+* CPU (not MMU)
+* interrupts
+* boot console
+* low level address map (physical memory management)
+* kernel heap
+* kernel arguments (command line)
+* run constructors
+
+and call main() finally
+
