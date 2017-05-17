@@ -1,6 +1,6 @@
 Phantom HAL divides machine-dependent code in two parts: architecture dependent and board (specific kind of hardware) dependent.
 
-See [[Machine dependent headers]]
+See [[Machine dependent headers]], [[Toolchain setup]]
 
 What architecture and board we build for is defined in ```local-config.mk``` (see ```local-config.mk.in``` for ref)
 
