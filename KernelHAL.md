@@ -32,9 +32,9 @@ oldtree/kernel/Makeconf-e2k - toolchain
 
 Must init hardware to the state when C code can be run.
 
-After that C function must be called to init kernel - see phantom_multiboot_main for reference.
+After that phantom_multiboot_main function must be called to init kernel.
 
-Must init:
+phantom_multiboot_main inits:
 * CPU (not MMU)
 * interrupts
 * boot console
@@ -43,5 +43,23 @@ Must init:
 * kernel arguments (command line)
 * run constructors
 
-and call main() finally
+by calling corresponding init functions and calls main() finally.
+
+### arch_init_early() and board_init_early()
+
+Called just after assembly code init is done to make architecture specific and board specific initializations. Can be empty.
+
+### spinlock.c
+
+Basic spinlocks:
+* hal_spin_init/lock/unlock - as is
+* check_global_lock_entry_count - called in sutuations when kernel expects that no spin lock is locked to check that
+
+### paging.c
+
+hal_page_control_etc - map or unmap virtual memory page according to parameters given
+
+### sched.c
+
+phantom_scheduler_request_soft_irq - must schedule soft IRQ for threads subsystem (```hal_request_softirq(SOFT_IRQ_THREADS);```) and cause any interrupt then.
 
