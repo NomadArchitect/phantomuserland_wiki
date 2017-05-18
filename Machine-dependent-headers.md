@@ -94,3 +94,8 @@ Example for ARM
 
 May need attention too.
 
+### $(ARCH)/proc_reg.h 
+
+Defines and access methods for CPU registers. Mostly talk about special ones, such as Intel CR3, debug registers, etc.
+Inline assembly wrappers used to execute special CPU instructions are usually come here too.
+
