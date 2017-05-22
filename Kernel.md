@@ -11,6 +11,7 @@
  * [[ObjectKernelConnector]] - how VM objects can access kernel
  * [[KernelDrivers]] - drivers infrastructure and services
  * [[KernelPrint]] - kernel printing/logging
+ * [[KernelDiskIO]] -- kernel block io subsystem
 
 ## Architecture specific ##
 
