@@ -10,7 +10,7 @@ Phantom language compiler is used as compiler itself and as backend (byte code g
 
 Parser itself, recursive one. Most methods parse one source code construct, such as expression or operator. returns Node, which is AST tree node. Uses Lex as lexical analyzer, ParserState to keep track ow what is being comiled (class, method, maps of stack variables) and list of referenced classes.
 
-## AST
+## Internal representation
 
 ### Node
 
@@ -22,4 +22,4 @@ Node class represents node of abstract representation of program.
 
 ```generate_code()``` - lays out bytecode for this subtree.
 
-
+```generateLlvmCode()``` - llvm code generator, incomplete
