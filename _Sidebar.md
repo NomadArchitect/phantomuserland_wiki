@@ -1,6 +1,7 @@
 Parts:
 * [[Kernel]]
 * [[VirtualMachine]]
+* [[PhantomLanguageCompiler]]
 * [[Bytecode]]
 
 Tasks:
