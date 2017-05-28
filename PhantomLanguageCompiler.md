@@ -1,0 +1,25 @@
+# Phantom compiler and byte code generator
+
+tools/plc
+
+Phantom language compiler is used as compiler itself and as backend (byte code generator) for other frontends, namely - jvm to phantom convertor (jpc).
+
+## Class reference - compiler
+
+### Grammar
+
+Parser itself, recursive one. Most methods parse one source code construct, such as expression or operator. returns Node, which is AST tree node. Uses Lex as lexical analyzer, ParserState to keep track ow what is being comiled (class, method, maps of stack variables) and list of referenced classes.
+
+## AST
+
+### Node
+
+Node class represents node of abstract representation of program.
+
+```find_out_my_type()``` - if possible, decide about this node's expression type by looking at descendants (parameters) or by node nature.
+
+```preprocess()``` - must be called after we finished all parsing and before we're trying to do something else, such as generatimg code or just printing/listing.
+
+```generate_code()``` - lays out bytecode for this subtree.
+
+
