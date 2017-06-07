@@ -1,7 +1,6 @@
 # Packing 'fat' folder into bootable image with grub2
 
-**caveat emptor**: grub2 currently not supported by Phantom OS. Fixes should be made soon.
-Also, currently there is disk reading troubles with running Phantom using modern QEMU and grub2. 
+**caveat emptor**: currently, this images only works under QEMU. Perhaps, need to bundle some modules with image? Update soon!
 
 Utility **grub-mkrescue** generates a bootable GRUB rescue image. It is shipped with grub package, and requires mformat (comes with mtools package) and xorriso tools.
 
