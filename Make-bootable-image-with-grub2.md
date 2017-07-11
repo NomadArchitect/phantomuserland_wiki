@@ -41,7 +41,7 @@ menuentry 'phantom ALL TESTS' {
 }
 ```
 
-It is worth mentioning that on real hardware, grub won't load kernel without following lines in grub.cfg:
+It is worth mentioning that on real hardware, grub won't load kernel without following lines at the beginning of grub.cfg:
 
 ```
 # A little of additional info
