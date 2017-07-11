@@ -11,7 +11,7 @@ Can be useful to debug virtual machine.
 
 ## QEMU + gdb
 
-When running kernel in QEMU it is possible to connnect with gdb. 
+When running kernel in QEMU, it is possible to connect to it with gdb. 
 
 If you have any questions regarding QEMU configuration, please refer to [manual](https://qemu.weilnetz.de/doc/qemu-doc.html) first.
 
@@ -22,7 +22,7 @@ First of all, you need to run gdb server in QEMU. To do so, add following key to
 -gdb tcp::1234
 ```
 
-Replace '1234' with desired port of your choice.
+Replace '1234' with the desired port of your choice.
 
 Please note that on Windows, older versions of QEMU (around 0.15) are incompatible with any kind of cygwin gdb. On Ubuntu, no such problem is present, with any version of QEMU.
 
@@ -41,7 +41,7 @@ Note that last three commands are given for example - you might want to set brea
 
 After `target remote` command, QEMU must pause. When you want to continue, write `continue` command in your gdb session.
 
-Please note that currently `print` command works wrong due to compilation configuration. If you want to see value of your variable, please use 'call printf(...)' command.
+Please note that currently `print` command works wrong due to compilation configuration. If you want to see the value of your variable, please use 'call printf(...)' command.
 
 Old instructions is here:
 
