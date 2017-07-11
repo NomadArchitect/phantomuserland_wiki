@@ -1,6 +1,6 @@
 # Packing 'fat' folder into bootable image with grub2
 
-**caveat emptor**: currently, this images only works under QEMU. Perhaps, need to bundle some modules with image? Update soon!
+**caveat emptor**: currently, this images only guaranteed to work under QEMU. We still look forward to launch Phantom OS on real hardware with grub2 - any help appreciated!
 
 Utility **grub-mkrescue** generates a bootable GRUB rescue image. It is shipped with grub package, and requires mformat (comes with mtools package) and xorriso tools.
 
@@ -8,8 +8,24 @@ grub-mkrescue also allows to pack anything along with image, by specifying direc
 
 By default, grub2 loads configuration from _/boot/grub/grub.cfg_
 So, by creating folder named, for example, _image_, and putting this file and folder hierarchy in it, rescue grub2 image with custom configuration can be created:
-`grub-mkrescue -o image_name.iso image`
+
+```
+grub-mkrescue -o image_name.iso image
+```
+
 Where **image_name.iso** - name of image created by utility, and **image** is folder with desirable additional image content. Argument **-o** allows to specify image name.
+
+You might want to add some grub modules. To do so, add `--modules="..."` key to your command. Currently, I use following command to create bootable Phantom OS image:
+
+```
+sudo grub-mkrescue -o ./phantom_boot.img --modules="font gfxterm echo reboot usb_keyboard multiboot fat ls cat ext2 iso9660 reiserfs xfs part_sun part_gpt part_msdos" ./fat/
+```
+
+Note that sudo is required, and do 
+
+`sudo chown $USER phantom_boot.img`
+
+afterwards to have full access to image.
 
 To create bootable Phantom OS image with grub2, we put custom grub.cfg (creation of one will be explained bellow) in fat/boot/grub/, and create use grub-mkrescue with folder fat as argument.
 
