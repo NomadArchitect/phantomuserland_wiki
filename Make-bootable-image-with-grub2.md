@@ -41,8 +41,36 @@ menuentry 'phantom ALL TESTS' {
 }
 ```
 
+It is worth mentioning that on real hardware, grub won't load kernel without following lines in grub.cfg:
+
+```
+# A little of additional info
+set pager=1
+
+if [ "${grub_platform}" == "efi" ]; then
+	echo "Loading EFI modules"
+	insmod efi_gop
+	insmod efi_uga
+elif [ "${grub_platform}" == "pc" ]; then
+	echo "Loading BIOS modules"
+	insmod vbe
+fi
+
+insmod font
+	
+if loadfont ${prefix}/unicode.pf2
+then
+   	insmod gfxterm
+   	set gfxmode=auto
+   	set gfxpayload=keep
+   	terminal_output gfxterm
+fi
+```
+
+It is also worth mentioning that it still doesn't load anything on real hardware, but this removes any error messages from grub, so, it is still something.
+
 Please note: If you are putting fat folder into image, please comment line `set root='(hd0,msdos1)'`, else replace hd0 with drive and msdos1 with partition, where fat is mounted or it's content is located. You also don't need `boot` line.
 
-Also note that phantom.img or it's equivalent is required somewhere in the machine, system won't work with it.
+Also note that phantom.img or it's equivalent is required somewhere in the machine, system won't work with it (but still will load GUI, it will be a good sign)
 
 To learn more about grub2 and it's configuration, please refer to [grub2 documentation](https://www.gnu.org/software/grub/manual/grub.html).
