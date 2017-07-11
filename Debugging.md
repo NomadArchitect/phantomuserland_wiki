@@ -1,6 +1,6 @@
-= Debugging =
+# Debugging
 
-== pvm_test + gdb ==
+## pvm_test + gdb
 
 ```
 cd phantom/vm
@@ -9,7 +9,7 @@ gdb pvm_test
 
 Can be useful to debug virtual machine.
 
-== QEMU + gdb ==
+## QEMU + gdb
 
 When running kernel in QEMU it is possible to connnect with gdb. 
 
@@ -55,7 +55,7 @@ gdb will load symbols and connect to running kernel.
 
 Please note macros in '''gdbmacros''' file (oldtree/kernel/phantom).
 
-== PDB Phantom Debugger ==
+### PDB Phantom Debugger
 
 There is a Java application in tools/pdb, which can connect to running '''pvm_test''' 
 (and should be able to connect to running kernel also) and let one to browse persistent 
