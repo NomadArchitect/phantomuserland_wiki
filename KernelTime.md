@@ -15,6 +15,17 @@ unix `time()` - just the same old true unix time(). not recommended, of course
 
 `void phantom_spinwait(int millis);` - wait some mseconds by spinning (not giving CPU away) - note that you have to disable interrupts (or, at least, preemption) to wait EXACTLY for given time.
 
+## Polled timeouts ##
+
+```
+typedef bigtime_t polled_timeout_t;
+
+void set_polled_timeout( polled_timeout_t *timer, bigtime_t timeout_uSec );
+bool check_polled_timeout( polled_timeout_t *timer );
+```
+
+Use set_polled_timeout() to setup timeout (in microseconds). Use check_polled_timeout() to find out if time is passed. Note that interrupts must be enabled. This call depends on system timer interrupt granularity. (10 msec?)
+
 ## Timed calls (callouts) ##
 
 ```
@@ -36,10 +47,10 @@ flags are:
 **NB!** Call is done in timer intr! Be quick!
 
 **NB!** It is possible for callout to happen BEFORE the return from this function.
-
-`void phantom_request_cond_signal( int msec, hal_cond_t *cond);`
-`void phantom_request_cond_broadcast( int msec, hal_cond_t *cond);`
-
+```
+void phantom_request_cond_signal( int msec, hal_cond_t *cond);
+void phantom_request_cond_broadcast( int msec, hal_cond_t *cond);
+```
 
 **TODO**
 
