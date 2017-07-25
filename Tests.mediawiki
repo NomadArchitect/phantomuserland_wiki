@@ -22,6 +22,10 @@ Finished compiler regression tests
 
 See also [[Running]]
 
+=== Phantom language compiler regress tests ===
+
+'''test/plc''' directory contains regress tests for plc compiler. There are correct copies of compiler listing files. Tests run compiler on .ph source files and compare listing outputs with stored ones.
+
 === Java compiler unit tests ===
 
 Currently are in '''tools/plc/src/test/toPhantom''', but shall come to '''plib/java/src/test/toPhantom''' eventually. Shall be run as above.
