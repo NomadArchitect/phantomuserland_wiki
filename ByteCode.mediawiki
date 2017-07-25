@@ -140,6 +140,9 @@ Pops '''numberOfArgs''' arguments from object stack, than pops object to call me
 
 Calls selected method passing given number of args. Top of integer stack of called method will have number of arguments passed. After the return exactly one object (possibly null) will be on the object stack.
 
+'''static_invoke methodIndex numberOfArgs'''
+
+Pops '''numberOfArgs''' arguments from object stack, than pops object to call method for, then pops class to call method in. NB! Class is not checked to be related with '''this''' that was passed. This supposed to be used for constructor calls.
 
 '''sys syscall_number'''
 
