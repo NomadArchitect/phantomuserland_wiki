@@ -38,7 +38,7 @@ Call to prepare/clean request.
 
 ### Fields that must be filled by caller
 
-```
+```c
     physaddr_t          phys_page;        	// physmem address
     disk_page_no_t      disk_page;        	// disk address in blocks (4096 bytes usually)
 
