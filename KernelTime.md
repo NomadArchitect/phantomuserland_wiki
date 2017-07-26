@@ -24,7 +24,7 @@ unix `time()` - just the same old true unix time(). not recommended, of course
 
 ## Polled timeouts ##
 
-```
+```c
 typedef bigtime_t polled_timeout_t;
 
 void set_polled_timeout( polled_timeout_t *timer, bigtime_t timeout_uSec );
@@ -37,7 +37,7 @@ Use set_polled_timeout() to setup timeout (in microseconds). Use check_polled_ti
 
 Call function after timeout from timer interrupt.
 
-```
+```c
 void phantom_request_timed_call( timedcall_t *entry, u_int32_t flags );
 void phantom_request_timed_func( timedcall_func_t f, void *arg, int msecLater, u_int32_t flags );
 ```
@@ -56,7 +56,7 @@ flags are:
 **NB!** Call is done in timer interrupt! Be quick! Don't attempt to sleep (mutex/cond) or call functions that sleep.
 
 **NB!** It is possible for callout to happen BEFORE the return from this function.
-```
+```c
 void phantom_request_cond_signal( int msec, hal_cond_t *cond);
 void phantom_request_cond_broadcast( int msec, hal_cond_t *cond);
 ```
@@ -72,7 +72,7 @@ Implement copy of these, but working on separate thread.
 Name is historical. Call function agfter timeout. Function is called in thread context, so
 it can call functions that block briefly (such as malloc/free). Still you can't sleep for long.
 
-```
+```c
 int set_net_timer(net_timer_event *e, unsigned int delay_ms, net_timer_callback callback, void *args, int flags);
 int cancel_net_timer(net_timer_event *e);
 ```
