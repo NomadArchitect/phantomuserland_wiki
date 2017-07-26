@@ -15,7 +15,7 @@ Spinlock is a fast, lightweit (takes one int) lock for a short pieces of code.
 
 Techincally implemented as integer value, which is zero if spinlock is open and nonzero if locked. Lock is taken with atomic exchange operation:
 
-```
+```c
 int temp = 1;
 atomically_exchange(temp, spinlock);
 if(temp != 0)
@@ -28,7 +28,7 @@ If spinlock is locked by CPU1 and CPU2 attempts to lock it too, CPU2 will wait (
 
 Todo: warn if spinlock is taken with interrupts open and preemption enabled.
 
-```
+```c
 hal_spinlock_t lock;
 
 hal_spin_init(&lock);
@@ -58,7 +58,7 @@ It's more or less OK to disable preemption for some 50 msec, for example.
 
 ## Mutex ##
 
-```
+```c
 #include <kernel/mutex.h>
 ```
 
@@ -70,7 +70,7 @@ Mutex can't be used:
 
 ## Cond ##
 
-```
+```c
 #include <kernel/cond.h>
 ```
 
@@ -78,7 +78,7 @@ Cond is similar to mutex in terms of usage, but does a different thing. Cond is 
 
 Here's why. Typical use of cond is, for example, signalling about new data available in buffer. Assume following code:
 
-```
+```c
 char getchar()
 {
     while( buffer_is_empty(buf) )             // A
@@ -98,7 +98,7 @@ Now imagine that due to bad luck code was executed ln the following sequence: A,
 
 Because of this cond is usually used with mutex, which makes sure that data modification and signalling are done atomically. Look:
 
-```
+```c
 char getchar()
 {
     hal_mutex_lock( buffer_related_mutex );
@@ -124,7 +124,7 @@ Note that hal\_cond\_wait() unlocks given mutex **AFTER** blocking the thread an
 
 ## Semaphore ##
 
-```
+```c
 #include <kernel/sem.h>
 ```
 
@@ -132,7 +132,7 @@ Semaphore can be used as mutex or cond.
 
 Classical use pattern:
 
-```
+```c
 hal_sem_t sem;
 
 void init()
@@ -161,8 +161,7 @@ Semaphore keeps acquire/release count and each `sem_release` will let just one `
 
 Bulk consumer use pattern:
 
-```
-
+```c
 void consumer_thread()
 {   
     while(1)
