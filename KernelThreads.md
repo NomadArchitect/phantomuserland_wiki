@@ -1,6 +1,6 @@
 # Overview #
 
-```
+```c
 #include <threads.h>
 #include <hal.h>
 ```
