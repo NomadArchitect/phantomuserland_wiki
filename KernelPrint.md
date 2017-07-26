@@ -30,13 +30,13 @@ would produce output:
 ### %D ###
 
 Hexdump, takes pointer and separator string:
-```
+```c
 		("%6D", ptr, ":")   -> XX:XX:XX:XX:XX:XX
 		("%*D", len, ptr, " " -> XX XX XX XX ...
 ```
 ## debug_ext.h ##
 
-```
+```c
 #define DEBUG_MSG_PREFIX "port"
 #include <debug_ext.h>
 #define debug_level_flow 10
@@ -44,7 +44,7 @@ Hexdump, takes pointer and separator string:
 #define debug_level_info 10
 ```
 
-```
+```c
 SHOW_ERROR0( 0, "Failed" ); // No printf args
 SHOW_ERROR( 1, "Hash remove fail for %s", el->name ); // Has args, will print if debug_level_error >= 1
 SHOW_FLOW0( 0, "port handle init"); // Flow control debug prints
