@@ -37,3 +37,16 @@ var name[] = <value, …>;
 
 <value, …> = name;
 
+### inherit
+
+Class can dynamically (by storing a reference and proxying methods) inherit from any number of base classes:
+
+```
+class car_truck extends car, .ru.dz.cars.truck_code
+{
+…
+};
+```
+
+In this case first base class will be static base class and others – dynamic. (Not implemented. Only one base class can be given now,)
+
