@@ -50,13 +50,11 @@ Phantom code is expected to be running in a persistent environment, but can be u
 
 === if ===
 
-'''if(''' <integer-expression> ''')''' <operator-yes> ['''else''' <operator-no>]'''<nowiki>;</nowiki>'''
+if( <integer-expression> ) <operator-yes> [else <operator-no>]
 
 
 <u>Operator-yes</u> will be executed if <u>integer-expression</u> is non zero. If <u>operator-no</u> is given it will be executed if <u>integer-expression</u> is zero. If type of expression can not be checked at compile time, '''NO CHECKS''' will be done at runtime. Result is unpredictable. Don’t expect exception to be thrown.
 
-
-+implemented, +tested.
 
 === while ===
 
@@ -66,8 +64,6 @@ Phantom code is expected to be running in a persistent environment, but can be u
 As long as <u>integer-expression</u> is nonzero, <u>operator</u> will be executed in loop. If type of expression can not be checked at compile time, '''NO CHECKS''' will be done at runtime. Result is unpredictable. Don’t expect exception to be thrown.
 
 
-+implemented, +tested.
-
 === do-while ===
 
 '''do '''<pre-operator>''' while( '''<integer-expression> ''')''' [<post-operator>]
@@ -76,18 +72,12 @@ As long as <u>integer-expression</u> is nonzero, <u>operator</u> will be execute
 Same as while, but <u>pre-operator</u> is executed before any condition check. If <u>post-operator</u> is omitted, we have a classical C-style do-while operator.
 
 
-+implemented, -tested.
-
 === foreach ===
 
 '''foreach(''' <variable> '''in''' <container-expression> ''')''' <operator>
 
 
 <u>Operator</u> will be executed a number of times, and each time <u>variable</u> will be assigned a new element of <u>container-expression</u>. All elements will be iterated through. Order is defined by the container. Variable will be const.
-
-
--implemented, -tested.
-
 
 Todo: “foreach(iterator) operator”
 
@@ -121,7 +111,6 @@ Todo: “foreach(iterator) operator”
 Your plain vanilla switch operator. Difference is that you can use any data type and non-constant cases. Integer and constants are MUCH more effective, though.
 
 
-+-implemented (integers only), +tested.
 
 === return ===
 
@@ -143,8 +132,6 @@ Return from method, with or without value.
 If <u>operator</u> will raise an exception throwing value of such <u>type-1</u>, <u>operator-1</u> will be executed, with <u>variable-1</u> containing thrown value.
 
 
-+implemented, -tested.
-
 === throw ===
 
 '''throw '''<expression>'''<nowiki>;</nowiki>'''
@@ -152,8 +139,6 @@ If <u>operator</u> will raise an exception throwing value of such <u>type-1</u>,
 
 Exception will be thrown and control will be passed to catching code.
 
-
-+implemented, +tested.
 
 === assert ===
 
@@ -164,9 +149,6 @@ Exception will be thrown and control will be passed to catching code.
 
 In a first form, throw will be executed if <u>expression</u> is zero. Second form checks for <u>expression</u> to be of a given type.
 
-
--implemented, -tested.
-
 === new ===
 
 '''… <nowiki>= new</nowiki>''' <type> '''(''' [<constructor-parameters>] ''')'''<nowiki>;</nowiki>
@@ -175,9 +157,6 @@ In a first form, throw will be executed if <u>expression</u> is zero. Second for
 
 
 In a first form, creates an object of a statically given type. Second form uses <u>type-expression</u> as class object. If expression type can not be checked at runtime, you have a chance of getting runtime exception (of object is not a class or args are of incorrect type).
-
-
-+implemented, +tested.
 
 == Variables ==
 
@@ -222,7 +201,7 @@ var name : *<type-defining-expression>[];
 Expression must evaluate to class (type) object. It will be checked at compile time if possible.
 
 
-+implemented, except for the last form.
+
 
 
 
@@ -311,14 +290,6 @@ string wavdata;
 
 wavdata = import “wink.wav”;
 
-=== Composition/decomposition (not implemented) ===
-
-
-
-var name[] = <value, …>;
-
-<value, …> = name;
-
 
 
 
@@ -400,23 +371,15 @@ Class can implement any number of interfaces:
 
 
 class car implements .ru.dz.cars.general, .com.microsoft.docsource
-
 {
-
 …
-
 };
-
 
 Class can statically (in a quite effective way) inherit from one base class:
 
-
 class car_truck extends car
-
 {
-
 …
-
 };
 
 
@@ -436,55 +399,8 @@ In this case first base class will be static base class and others – dynamic. 
 
 == Types ==
 
-Type is either void, or class name reference with optional container modifier. Look at examples:
+[[Phantom language types]]
 
-
-// error, variable can’t be void
-
-var alpha : void; 
-
-
-// scalar
-
-var beta : .internal.integer; 
-
-var beta : int; // '''int''' is shortcut for '''.internal.integer'''
-
-
-// vector of strings, default implementation
-
-var gamma : .internal.string [];
-
-var gamma : string [];
-
-
-// vector, own implementation (.local.my_vector is a class)
-
-var gamma : .internal.string [.local.my_vector]; 
-
-
-// vector of type, defined at runtime by class_variable.
-
-var gamma : *class_variable [.local.my_vector]; 
-
-
-// vector of strings, vector class is defined at runtime 
-
-// by class_variable.
-
-var gamma : .internal.string [*class_variable]; 
-
-
-
-
-
-
-Type can be undefined at compile time.
-
-
-// variable of unknown type
-
-var alpha; 
 
 
 == Precedence ==
@@ -506,37 +422,6 @@ var alpha;
 | & ~
 
 
-== Errors and plans ==
-
-Do <class-name> and <type-name> mean the same in this document? (No, type is class with possible []s)
-
-
-Constructor can have ‘regenerator’ semantics to let us automatically recreate object if it was lost intentionally (not saved on snap) or accidentally (disk error, network error).
-
-
-Make-style object dependencies?
-
-
-Automatic-like variables with a guaranteed finalizer call on out-of scope event? (It will be forbidden for them to be passed away from method, of course.)
-
-
-When passing object reference losing its type, we shall replace its interface with a special one, which will check all argument types in runtime.
-
-
-Shall class object have a method which returns class interface by index?
-
-
-case ranges? case 1 … 5:
-
-
-== Closures (not implemented) ==
-
-Closure is a pair of object pointer and block of code. Closure can be passed as value and activated. Closure can have parameters (in this case we can call it anonymous method). Closure can use usual method as it’s code.
-
-
-Need closure to get parameters from surrounding code? Implicit or explicit way?
-
-
 
 
 == References ==
@@ -549,3 +434,5 @@ Need closure to get parameters from surrounding code? Implicit or explicit way?
 [[Phantom language possible interface cast implementation]]
 [[Phantom language possible events implementation]]
 [[Phantom language possible functions implementation]]
+
+[[Phantom language assorted ideas]]
