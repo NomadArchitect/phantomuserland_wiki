@@ -5,7 +5,7 @@ Phantom programming laguage is a native language for Phantom applications code. 
 
 This document describes phantom programming language as planned at this moment, 10 March 2009.
 
-Impatient? Read [[Phantom language differences from Java, C# and C++]]
+Impatient? Read [[Phantom difference from Java, C and C#]]
 
 
 ## Structure
