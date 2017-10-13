@@ -9,36 +9,36 @@ Some attributes are specifically treated by system, others are user-defined.
 
 
 
-{| style="border-spacing:0;width:15.441cm;"
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+{| 
+|- 
 || const
 || –
 || It is checked that corresponding value is constant. It will not be permitted to use such value in situations where it can be changed. Calls to const methods are subject to common sub-expression elimination.
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || volatile
 || –
 || Any kind of optimizations (for example, common sub-expression elimination) will be forbidden for this value/method.
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || synchronized
 || –
 || Each access will be locked on class-global semaphore.
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || class-local
 || –
 || can’t be passed/used outside of class (like private)
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || package-local
 || –
 || Compiler will generate error if you try to pass such thing to other package’s method somehow.
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || user-local
 || –
 || Compiler will generate code for runtime checks for passing this data to another user. (User is operating system defined thing.)
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || thread-local
 || –
 || Compiler will generate code for runtime checks (or do static checks where possible) for passing this data to another thread.
-|- style="border:none;padding-top:0cm;padding-bottom:0cm;padding-left:0.191cm;padding-right:0.191cm;"
+|- 
 || phantom-public
 || –
 || In phantom OS environment this class will be globally accessible. Other classes will be available in package only.
