@@ -32,9 +32,6 @@ Any class can identify an exception (no special interface implementation is requ
 
 Any number of arguments is passed, one or nothing is returned. Null object will be received if caller expects return value and called code did not return anything. (This is assumed to be impossible in a correct Phantom language program, but is possible technically.) If called code does not return some object explicitly, it is possible that some junk value will be returned. Static type checks are supposed to prevent this, but you can overcome.
 
-
-
-
 To do: named arguments, such as
 ```
 container.add( value => 5, position => iterator );
@@ -115,7 +112,6 @@ return <expression>;
 Return from method, with or without value.
 
 
-
 ### try-catch
 ```
 try 
@@ -156,6 +152,14 @@ In a first form, throw will be executed if <u>expression</u> is zero. Second for
 ```
 
 In a first form, creates an object of a statically given type. Second form uses <u>type-expression</u> as class object. If expression type can not be checked at runtime, you have a chance of getting runtime exception (of object is not a class or args are of incorrect type).
+
+
+Last form of new lets you create class having just a pointer to class object, but make result of new to be known to compiler of having given type.
+
+```
+… = new *(<type-expression>) : <type> ( [<constructor-parameters>] );
+```
+
 
 ## Variables
 
