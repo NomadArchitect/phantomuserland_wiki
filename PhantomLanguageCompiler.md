@@ -1,5 +1,7 @@
 # Phantom compiler and byte code generator
 
+See also [[PhantomLanguage]]
+
 tools/plc
 
 Phantom language compiler is used as compiler itself and as backend (byte code generator) for other frontends, namely - jvm to phantom convertor (jpc).
