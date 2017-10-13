@@ -1,5 +1,5 @@
 # Phantom language differences from Java, C# and C++
-++
+
 For those who don't want to read too much. 
 
 ## No difference between integer and object. 
