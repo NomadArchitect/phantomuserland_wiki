@@ -221,8 +221,6 @@ Note that = operator works more like in C/C++, though it works with references, 
 Value assignment. This is a shortcut for a method ‘assign’ (ordinal '''N - 11??''') of an object. Thing to kill if you like functional languages. Do we need to forbid it for integer and string objects?
 
 
-- implemented, -tested.
-
 === Comparison ===
 
 <lvalue> = <expression> :== <expression>;
