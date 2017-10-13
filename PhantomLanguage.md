@@ -36,9 +36,9 @@ Any number of arguments is passed, one or nothing is returned. Null object will 
 
 
 To do: named arguments, such as
-
+```
 container.add( value => 5, position => iterator );
-
+```
 ## Memory
 
 Phantom language objects are dynamically (heap) allocated only. No automatic (stack) allocation possible, but stacks variables exist. No static variables exist, but you can use class variables to achieve effect akin to static variables (not implemented).
@@ -65,17 +65,20 @@ As long as <u>integer-expression</u> is nonzero, <u>operator</u> will be execute
 
 
 ### do-while
-
-'''do '''<pre-operator>''' while( '''<integer-expression> ''')''' [<post-operator>]
-
+```
+do <pre-operator> while( <integer-expression> ) [<post-operator>]
+```
 
 Same as while, but <u>pre-operator</u> is executed before any condition check. If <u>post-operator</u> is omitted, we have a classical C-style do-while operator.
 
 
 ### foreach
 
-'''foreach(''' <variable> '''in''' <container-expression> ''')''' <operator>
+Not impl?
 
+```
+foreach( <variable> in <container-expression> ) <operator>
+```
 
 <u>Operator</u> will be executed a number of times, and each time <u>variable</u> will be assigned a new element of <u>container-expression</u>. All elements will be iterated through. Order is defined by the container. Variable will be const.
 
@@ -83,26 +86,18 @@ Todo: “foreach(iterator) operator”
 
 ### switch
 
-'''switch( '''<expression>''' )'''
+```
+switch( <expression> )
+{
+    case <expression>:
+        // code
+        break;
 
-'''{'''
-
-
-'''case''' <expression>:
-
-// code
-
-'''break;'''
-
-
-'''default:'''
-
-// if expression was 1 we’ll come here
-
-'''break;'''
-
-'''}'''
-
+    default:
+        // if expression was 1 we’ll come here
+        break;
+}
+```
 
 
 Your plain vanilla switch operator. Difference is that you can use any data type and non-constant cases. Integer and constants are MUCH more effective, though.
@@ -111,26 +106,31 @@ Your plain vanilla switch operator. Difference is that you can use any data type
 
 ### return
 
-'''return;'''
+```
+return;
 
-'''return '''<expression>'''<nowiki>;</nowiki>'''
-
+return <expression>;
+```
 
 Return from method, with or without value.
 
 
 
 ### try-catch
-
-'''try <'''operator>''' catch(''' <type-1> <variable-1> ''')''' <operator-1> {''' catch(''' <type-N> <variable-N> ''')''' <operator-N> }
-
+```
+try 
+    <operator> 
+catch( <type-1> <variable-1> ) 
+    <operator-1>
+...
+```
 
 If <u>operator</u> will raise an exception throwing value of such <u>type-1</u>, <u>operator-1</u> will be executed, with <u>variable-1</u> containing thrown value.
 
 
 ### throw
 
-'''throw '''<expression>'''<nowiki>;</nowiki>'''
+throw <expression>;
 
 
 Exception will be thrown and control will be passed to catching code.
@@ -138,19 +138,22 @@ Exception will be thrown and control will be passed to catching code.
 
 ### assert 
 
-'''assert''' <expression> ['''throw''' <value-to-throw>];
+Not impl?
 
-'''assert '''['''typeof''']''' '''<expression> '''is''' <type-expression> ['''throw''' <value-to-throw>];
+assert <expression> [throw <value-to-throw>];
+
+assert [typeof] <expression> is <type-expression> [throw <value-to-throw>];
 
 
 In a first form, throw will be executed if <u>expression</u> is zero. Second form checks for <u>expression</u> to be of a given type.
 
 ### new
 
-'''… <nowiki>= new</nowiki>''' <type> '''(''' [<constructor-parameters>] ''')'''<nowiki>;</nowiki>
+```
+… = new <type> ( [<constructor-parameters>] );
 
-'''… <nowiki>= new</nowiki>''' '''<nowiki>*(</nowiki>'''<type-expression>''')''' '''(''' [<constructor-parameters>] ''')'''<nowiki>;</nowiki>
-
+… = new *(<type-expression>) ( [<constructor-parameters>] );
+```
 
 In a first form, creates an object of a statically given type. Second form uses <u>type-expression</u> as class object. If expression type can not be checked at runtime, you have a chance of getting runtime exception (of object is not a class or args are of incorrect type).
 
