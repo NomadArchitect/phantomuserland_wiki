@@ -29,3 +29,11 @@ Closure is a pair of object pointer and block of code. Closure can be passed as 
 Need closure to get parameters from surrounding code? Implicit or explicit way?
 
 
+### Composition/decomposition (not implemented)
+
+
+
+var name[] = <value, …>;
+
+<value, …> = name;
+
