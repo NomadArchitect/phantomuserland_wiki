@@ -197,19 +197,11 @@ Expression must evaluate to class (type) object. It will be checked at compile t
 
 
 
-
-
-
-
-
-
-
-
 ## Expressions
 
 ### Assignment 
 
-<lvalue> '''<nowiki>=</nowiki>''' <expression>'''<nowiki>;</nowiki>'''
+<lvalue> = <expression>;
 
 
 Usual = is a reference assignment operator.
@@ -220,10 +212,10 @@ var i2 = i1; // i2 is the same object as i1 now
 i1 = 10; // i2 is 5 now! Not like Java!
 ```
 
-Note that '''<nowiki>=</nowiki>''' operator works more like in C/C++, though it works with references, not values.
+Note that = operator works more like in C/C++, though it works with references, not values.
 
 
-<lvalue> .'''<nowiki>=</nowiki>''' <expression>'''<nowiki>;</nowiki>'''
+<lvalue> .= <expression>;
 
 
 Value assignment. This is a shortcut for a method ‘assign’ (ordinal '''N - 11??''') of an object. Thing to kill if you like functional languages. Do we need to forbid it for integer and string objects?
@@ -233,14 +225,10 @@ Value assignment. This is a shortcut for a method ‘assign’ (ordinal '''N - 1
 
 === Comparison ===
 
-<lvalue> '''<nowiki>=</nowiki>''' <expression> ''':==''' <expression>'''<nowiki>;</nowiki>'''
+<lvalue> = <expression> :== <expression>;
+<lvalue> = <expression> :!= <expression>;
 
-<lvalue> '''<nowiki>=</nowiki>''' <expression> ''':!=''' <expression>'''<nowiki>;</nowiki>'''
-
-
-
-
-Operator ''':==''' is reference comparison.
+Operator ```:==``` is reference comparison.
 
 ```
 var i1 = 5; 
@@ -250,20 +238,19 @@ i1 = 5;
 i1 :== i2 // is false!
 ```
 
-Note that :'''<nowiki>==</nowiki>''' operator works more like == in Java.
+Note that ```:==``` operator works more like == in Java.
 
 
-<expression> '''<nowiki>==</nowiki>''' <expression>
+Value comparison:
 
-<expression> '''!=''' <expression>
-
-<expression> >'''<nowiki>=</nowiki>''' <expression>
-
-<expression> <'''<nowiki>=</nowiki>''' <expression>
-
-<expression> > <expression>
-
+```
+<expression> == <expression>
+<expression> != <expression>
+<expression> <= <expression>
+<expression> >= <expression>
 <expression> < <expression>
+<expression> > <expression>
+```
 
 
 
@@ -273,14 +260,15 @@ Value comparison. This is a shortcut for a method ‘equals’ (ordinal '''N??''
 
 ### Import
 
-String (binary array, in fact, but currently compiler treats it as a string) can be imported from some storage. This is a quick hack to make an easy way to bring binary data to phantom testing environment. Import will surely change or cease to exist later. But for now compiler accepts constructs of '''import “filename”''' form in place of string constant.
+String can be imported from some storage. This is a quick hack to make an easy way to bring binary data to phantom testing environment. Import will surely change or cease to exist later. But for now compiler accepts constructs of '''import “filename”''' form in place of string constant.
 
-
+```
 string wavdata;
 
 wavdata = import “wink.wav”;
+```
 
-
+Phantom strings are binary arrays in fact and can contain anything including binary zero.
 
 
 ## Method call 
@@ -300,45 +288,30 @@ All the methods internally are numbered. For very special system-programmer’s 
 ## Class definition 
 
 
-
-'''class''' <class-name> {<extends-implements>}
-
-'''{'''
+```
+class <class-name> {<extends-implements>}
+{
 
 {<variable-or-method-definition>}
 
-'''};'''
+};
+```
 
-
-<extends-implements> ::=
-
-<extends> | <implements>
-
+``
+<extends-implements> ::= <extends> | <implements>
 
 <extends> ::= extends <class-name>
 
+<variable-or-method-definition> ::= <variable-definition> | <method-definition>
 
-<variable-or-method-definition> ::=
-
-<variable-definition> |
-
-<method-definition>
-
-
-<method-definition> ::= 
-
-<type-name> <method-name> '''('''<args>''')''' ['''['''<integer>''']''']
-
-'''{''' <method-body> '''}'''
-
+<method-definition> ::= <type-name> <method-name> (<args>) [<integer>] { <method-body> }
+```
 
 Construction [<integer>] after arguments is used to define which ordinal number precisely this method will get.
 
-
-
-
-'''package''' <package-name> '''<nowiki>;</nowiki>'''
-
+``
+package <package-name>;
+``
 
 Defines current source file as a component of a named package. It is not required. If package is not defined, all class definitions must use absolute class names (starting with point).
 
@@ -408,9 +381,9 @@ class car_truck extends car
 
 ## See also
 
-[[Phantom language possible attributes implementation]]
-[[Phantom language possible interface cast implementation]]
-[[Phantom language possible events implementation]]
-[[Phantom language possible functions implementation]]
+[[Phantom language possible attributes implementation]] ::
+[[Phantom language possible interface cast implementation]] ::
+[[Phantom language possible events implementation]] ::
+[[Phantom language possible functions implementation]] ::
 
 [[Phantom language assorted ideas]]
