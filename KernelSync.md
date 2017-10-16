@@ -28,6 +28,10 @@ If spinlock is locked by CPU1 and CPU2 attempts to lock it too, CPU2 will wait (
 
 Todo: warn if spinlock is taken with interrupts open and preemption enabled.
 
+### Basic spinlocks
+
+Caller must disable interrupts.
+
 ```c
 hal_spinlock_t lock;
 
@@ -38,7 +42,22 @@ hal_spin_lock(&lock);
 hal_spin_unlock(&lock);
 ```
 
-**NB!** Spinlocks can't be used around code which accesses object land. Such code can cause page fault and context switch as a result, which leads to panic in spinlock counter assert in context switch.
+**NB!** Basic spinlocks can't be used around code which accesses object land. Such code can cause page fault and context switch as a result, which leads to panic in spinlock counter assert in context switch.
+
+### Interrupt controlling spinlocks
+```c
+void    hal_spin_lock_cli(hal_spinlock_t *sl);
+void    hal_spin_unlock_sti(hal_spinlock_t *sl);
+```
+
+Will make sure interrupts are disabled and restore interrupts state on unlock.
+
+### Wired spinlocks
+```c
+void    hal_wired_spin_lock(hal_spinlock_t *l);
+void    hal_wired_spin_unlock(hal_spinlock_t *l);
+```
+Will bring memory page ```hal_spinlock_t *``` points to to physical memory and protect it from being paged out.
 
 ## Interrupt disable ##
 
