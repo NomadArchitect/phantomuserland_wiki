@@ -10,6 +10,7 @@ Phantom language compiler is used as compiler itself and as backend (byte code g
 
 1. See **/test/plc** directory. This test can be used if you need to check if compiler generates same code as before. Just run tests and compiler listing files will be compared with reference ones. Note that it runs compiler defined in build/bin & build/jar. Usually it is not the latest code you made in tools/plc.
 2. phatom/vm/pvm_test can be run to execute compiled bytecode. See also [[Debugging]].
+3. Unit tests in tools/plc/src/test
 
 ## Class reference - compiler
 
