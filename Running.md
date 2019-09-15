@@ -43,3 +43,10 @@ In short, you just need to put a copy of Phantom disk superblock into the 16-th 
 Phantom sends kernel log into serial port, it can help to find out what's wrong if kernel dies.
 
 See also [[Making bootable image with grub2]]
+
+## Bytecode execution without Phantom kernel ##
+
+It is easy to test phantom language compiler and virtual machine without starting Phantom kernel.
+In phantom/vm directory there is pvm_test.exe and pvm_headless.exe (Windows) or pvm_headless (Unix)
+executable files that run reduced Phantom bytecode virtual machine.
+
