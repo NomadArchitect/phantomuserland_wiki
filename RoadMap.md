@@ -13,7 +13,7 @@ Quite crirtical tasks.
 |**Hosted test env. multithreading**. Port existing threads lib to work in unix userland/cygwin.|Must be easy.|
 |**Hosted test env. TCP access**.|Ditto.|
 |Windowing events, input, event thread pools. Need userland iface. Need code cleanup.|**In progress**.|
-|**VM and compiler support for floats/doubles/64 bit ints**.|**In progress**.|
+|**VM and compiler support for floats/doubles/64 bit ints**.|**64 bit ints done, rest is in progress**.|
 |**More of Phantom language implementation in compiler**. Closures, direct containers support.|Actual?|
 |**VmWeakRef** - stuck with synchronization!|**In progress**|
 |**Border objects and restart exceptions**. Especially for TCP interfaces. Depends on weakrefs!|**Nearly done**|
