@@ -31,3 +31,13 @@ Node class represents node of abstract representation of program.
 ```generate_code()``` - lays out bytecode for this subtree.
 
 ```generateLlvmCode()``` - llvm code generator, incomplete
+
+## Implementation notes
+
+### Untyped vars
+
+Historically it was possible to define variable with no type. It is still possible for fields, method parameters,
+but is deprecated.
+
+
+
