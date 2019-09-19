@@ -33,7 +33,9 @@ In progress:
 == Constant types ==
 
 * String - binary is string content
-* Method - binary is method as in method record binary content
+* Method - (not impl) binary is method as in method record binary content
+* Class ref (not impl)
+* Method/field ordinal (not impl)
 
 == Planned ==
 
