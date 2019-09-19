@@ -1,5 +1,7 @@
 = Phantom .pc class file structure =
 
+See also [[VmLinker]]
+
 Actually repesents any binary representation of class. All binaries are little endian.
 
 '''{int8} {int32} {int64}''' - per se.
