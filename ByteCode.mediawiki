@@ -431,6 +431,8 @@ Push corresponding class object on stack.
 
 '''NB!! Define implementation! Must go through some thread specific class loader?'''
 
+TODO: must reference constant pool instead. Constant pool object must be resolved at load time and contain class ref.
+
 === Integer stack operations ===
 NB! Integer stack supports long/float/double operations too.
 
