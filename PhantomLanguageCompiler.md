@@ -40,4 +40,22 @@ Historically it was possible to define variable with no type. It is still possib
 but is deprecated.
 
 
+## See also
 
+* [[Phantom difference from Java, C and C#]]
+* [[PhantomLanguage]]
+* [[Phantom language types]]
+* [[PhantomTestEnvironment]]
+
+## Design notes
+
+* [[Phantom language assorted ideas]]
+* [[Phantom language possible functions implementation]]
+* [[Phantom language possible events implementation]]
+* [[Phantom language possible attributes implementation]]
+* [[Phantom language possible interface cast implementation]]
+* [[ObjectOrdinals]]
+* [[Satellites]]
+* [[VirtualMachine]]
+* [[VmClassLookup]]
+* [[VmLinker]]
