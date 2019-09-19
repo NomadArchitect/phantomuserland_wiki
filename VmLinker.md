@@ -1,5 +1,7 @@
 # VM Class loader and linker
 
+See also [[ClassFile]]
+
 ## Basic class load
 
 Class is represented as binary blob containing tagged records:
