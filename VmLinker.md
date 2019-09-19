@@ -2,6 +2,9 @@
 
 See also [[ClassFile]]
 
+TODO: we need some way to define interface-specific VMT. Possibly 'I' record which is just like 'S' (signature)
+but has interface name added.
+
 ## Basic class load
 
 Class is represented as binary blob containing tagged records:
