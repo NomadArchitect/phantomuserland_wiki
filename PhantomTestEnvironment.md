@@ -1,11 +1,13 @@
 # Phantom Test Environment #
 
-The pvm\_test.exe program can run Phantom code in usual Windows environment. (Btw, port to unix/X11 is welcome.) It takes the same 'bulk' class bundle as a Phantom kernel and starts code as if it was started by a new OS instance.
+The pvm\_test.exe (pvm\_test) program can run Phantom code in usual Windows environment. (Btw, port to unix/X11 is welcome.) It takes the same 'bulk' class bundle as a Phantom kernel and starts code as if it was started by a new OS instance.
 
 Todo:
   * It would be great to have GDB networked interface to be able to debug Phantom code with GDB.
   * Due to this program internal RGBA bitmap representation is, really, BGRA, which is plain wrong. Win32 display 'driver' has to be redone.
   * It would be good to start adding networking to Phantom starting from here. Setup TCP/UDP classes and connect directly to host OS implementation?
+
+The companion pvm\_headless.exe (pvm\_headless) exist with no graphics support. Internally all the graphics engine still exist, just no display.
 
 # Differences #
 
