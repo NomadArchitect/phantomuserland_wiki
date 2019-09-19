@@ -60,3 +60,7 @@ This is a ‘default activity’ method which is often called implicitly by comp
 ==== 14 - (not implemented) ??? operator = ====
 ==== 15 – hashCode ====
 Returns integer, used in hash tables.
+
+== Notes ==
+
+As project evolves we should deprecate using predefined ordinals.
