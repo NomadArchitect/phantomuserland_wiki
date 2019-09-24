@@ -4,7 +4,8 @@
  * [[KernelThreads]] - Kernel threads
  * [[KernelTime]] - Timers, callouts, timekeeping
  * [[KernelSync]] - Spinlocks, Mutexes, Conds, etc
- * [[KernelVmMap]]
+ * [[KernelVmMap]] - Persistent memory
+ * [[SnapSync]] - synchronisation gear to prevent object space modification during snapshot
  * [[KernelMemoryMap]] - Physical/virtual kernel memory 
  * [[KernelUnix]] - basic POSIX subsystem implementation
  * [[KernelObjectInterface]] - how kernel can access VM objects
