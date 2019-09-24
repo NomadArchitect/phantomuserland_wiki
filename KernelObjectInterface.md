@@ -1,5 +1,7 @@
 # Kernel to object land interface #
 
+See also [[SnapSync]]
+
 ## Problems ##
 
 * If kernel can access any persistent object, garbage collector should not delete such object.
