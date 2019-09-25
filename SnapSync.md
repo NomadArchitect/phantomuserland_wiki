@@ -28,8 +28,16 @@ while(1)
     if(phantom_virtual_machine_snap_request)
         phantom_thread_wait_4_snap();
     ... your code ...
+    // NB! No cond wait or long locking mutexes in loop!
 }
 ```
+
+**NB!**
+
+This example is good just for **TIGHT** loops with no wait inside the 'while' statement.
+Even sleep for more than few milliseconds is not ok. To perform a critical part of snapshot kernel
+waits for all threads to revoke object land access, and if it takes too long it may become
+visible for user.
 
 `extern int phantom_virtual_machine_snap_request;`
 
