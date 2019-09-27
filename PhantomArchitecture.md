@@ -16,14 +16,14 @@ boot up as if no shutdown ever happened.
 ## Persistent memory and snapshots ##
 
 Phantom does regular **snapshot** of the whole virtual memory. Snapshots are
-done asycnchronously and without stopping the world, but resulting snapshot
+done asynchronously and without stopping the world, but resulting snapshot
 is synchronous - all the memory is being snapped at the very same moment in
 OS's 'personal' time. It means that snapshot state is captured like if all
 the system was stopped, dumped to disk and then run again. But without stopping.
 
+See also: [[SnapSync]], [[BlockingSyscalls]]
 
 ## Virtual machine ##
-
 
 Phantom bytecode is traditional stack-machine bytecode. It is very like
 Java bytecode, but there is no difference between built-in and user
@@ -31,12 +31,13 @@ types on the method boundary level. Any object (even integer) is class instance.
 some specific support for integer calculations though, to speedup things.
 
 It is supposed that Phantom bytecode can represent any Java program, and
-Java to Phantom bytecode convertor is being written. Other languages are
+Java to Phantom bytecode converter is being written. Other languages are
 supposed to be brought through the Java bytecode or directly, by writing
 specific language frontend.
 
-C# (CLR) bytecode convertor is planned, but no work is in progress yet.
+C# (CLR) bytecode converter is planned, but no work is in progress yet.
 
+See also: [[VirtualMachine]]
 
 ## Kernel communication ##
 
@@ -44,6 +45,8 @@ There is set of (internal) classes, which methods are implemented in kernel.
 These classes offer kernel interface in object environment. Unlike Java,
 in Phantom all the class code is either internal (native, in Java terms), or
 bytecode-level. 
+
+See also: [[InternalClasses]], [[ObjectKernelConnector]], [[KernelObjectInterface]], [[BlockingSyscalls]]
 
 ## Drivers ##
 
