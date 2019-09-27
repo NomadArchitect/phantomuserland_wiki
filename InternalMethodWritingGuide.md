@@ -1,5 +1,7 @@
 # Introduction #
 
+See also: [[InternalClasses]]
+
 Syscall is a method of internal class. It is called as usual method (at least all the conversion is hidden).
 
 Syscall is supposed to return one object or return nothing. Syscall can throw an exception.
