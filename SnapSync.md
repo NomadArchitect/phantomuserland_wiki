@@ -3,7 +3,7 @@
 * To prevent persistent memory from being modified during snapshot.
 * To make sure virtual machine state is consistent during snapshot.
 
-See also [[ObjectKernelConnector]]
+See also [[ObjectKernelConnector]], [[BlockingSyscalls]]
 
 # Functions
 
