@@ -13,4 +13,5 @@
  * [[InternalClasses]] - list of in-kernel implemented classes (native, in Java terms)
  * [[ClassFile]] - binary class file structure
  * [[SnapSync]] - synchronisation gear to prevent object space modification during snapshot
+ * [[BlockingSyscalls]] - interaction between snapshot and long calls from VM to kernel
 
