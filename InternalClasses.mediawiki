@@ -1,5 +1,7 @@
 = Internal classes (implemented) =
 
+See also: [[BlockingSyscalls]]
+
 == .internal.void ==
 'no class' class – TODO – detach from object!
 
