@@ -5,7 +5,7 @@ state is interlocked with kernel state. In short, after restart there will be no
 
 Connection object is used to solve that. Connection is able to start kernel operation, block itself in the VM and wait for operation to finish. If restart happens, kernel calls special entry point of connection before VM start, letting connection to re-establish communications with kernel or return failure to VM side.
 
-See also [[SnapSync]]
+See also [[SnapSync]], [[BlockingSyscalls]]
 
 ## Design ##
 
