@@ -218,7 +218,7 @@ Delete stack top.
 os pull 2;
 ```
 
-Copy object displacement steps down from top of object stack on top of it. Pull 0 is equal to dup. '''NB! Deprecated!'''
+Copy object displacement steps down from top of object stack on top of it. Pull 0 is equal to dup.
 
 '''load slot_num'''
 
@@ -255,39 +255,6 @@ set 0;
 
 Pop object, store to selected position of object stack. These two are for the local variables access.
 
-
-'''compose n_objects''' - NB! Not implemented (and never will be?)
-
-```
-// code object on stack
-summon “internal.class.interface”;
-compose 1;
-// interface object initialized with 1 code object
-// is on stack
-```
-
-Top of stack is class object, initializers follow. New object of that class will be constructed, new object slots will be filled with n_objects objects from stack.
-
-
-'''NB!! This operation must be available to objects of classes that permit it explicitly. Corresponding checks must be added.'''
-
-'''NB!! It is better to kill it at all.'''
-
-
-'''decompose'''
-
-```
-decompose;
-```
-
-Will store on stack all of the fields of top stack object. Number of objects will be pushed to integer stack.
-
-
-'''NB!! This operation must be available to objects of classes that permit it explicitly. Corresponding checks must be added.'''
-
-'''NB!! It is better to kill it at all.'''
-
-
 '''new'''
 
 ```
@@ -296,8 +263,7 @@ new;
 ```
 
 Create a new object of given (stack top) class. String, in this case.
-Compiler must henerate code to call constructor.
-
+No constructor called automatically. Compiler must generate code to call constructor.
 
 
 '''copy'''
@@ -308,6 +274,7 @@ copy;
 
 Create a copy of top stack object. Same class, same slot values. '''A call to method 3?'''
 
+Not implemented and should not be.
 
 '''os eq'''
 
@@ -344,7 +311,7 @@ push catcher string_thrown;
 // code
 ret;
 string_thrown:
-// on exception of string type we’ll get here
+// on exception of string type we’ll get here with thrown object on stack top
 // do cleanup
 ret;
 ```
@@ -388,7 +355,7 @@ Push constant on stack top. Special shortcuts for 0 and 1 exist. Strings are Uni
 const_pool 22;
 ```
 
-Load constand numbed 22 from constants pool. Constants pool is loaded from class file.
+Load constant number 22 from constants pool. Constants pool is loaded from class file.
 
 === Summoning ===
 '''summon this'''
@@ -563,7 +530,7 @@ logical operations on integer stack top.
 
 === Not yet described codes ===
 
-The 'lock/unlock' opcodes intended to implement JVM like sycronization. Not implemented.
+The 'lock/unlock' opcodes intended to implement JVM like synchronization. Not implemented.
 
 
 
