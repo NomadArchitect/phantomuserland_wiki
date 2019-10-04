@@ -12,7 +12,7 @@ Q: what about 'this'?
 
 Call parameters: 'this' object, current thread object [[DataArea]] pointer.
 
-# Helpers #
+## Helpers ##
 
   * SYSCALL\_RETURN(obj) - return object
   * SYSCALL\_RETURN\_NOTHING - just return (null object will be returned, in fact)
@@ -24,7 +24,7 @@ Call parameters: 'this' object, current thread object [[DataArea]] pointer.
   * ASSERT\_INT(obj) - throws, if not an int object
   * DEBUG\_INFO - in debug mode prints call info
 
-# Example #
+## Example ##
 
 ```c
 static int si_string_8_substring( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
@@ -51,7 +51,33 @@ static int si_string_8_substring( pvm_object_t me, pvm_object_t *ret, struct dat
 }
 ```
 
-# Outdated, do not use #
+## Blocking code ##
+
+Code implementing syscall must finish its job really quick or it will prevent snapshots from being done. If you need
+long waiting code in syscall, call ```vm_unlock_persistent_memory()``` before it and ```vm_lock_persistent_memory()``` after.
+
+Note that you can't snd shouldn't access persistent storage (any VM objects) in this state. You can briefly
+re-gain access to persistent memory by calling ```vm_lock_persistent_memory()``` again (and not forget to ```vm_unlock_persistent_memory()``` soon), but be cautious.
+
+Example:
+```
+vm_object_t array = pvm_create_object( pvm_get_array_class() );
+vm_unlock_persistent_memory();
+for(...)
+{
+    const char *string = call_network();
+
+    vm_unlock_persistent_memory();
+    pvm_object_t so = pvm_create_string_object(string);
+    pvm_append_array( array, so );
+    vm_unlock_persistent_memory();
+}
+
+vm_lock_persistent_memory();
+```
+
+
+## Outdated, do not use ##
 
   * SYSCALL\_PUT\_THIS\_THREAD\_ASLEEP() - after returning from syscall current thread will be blocked
   * SYSCALL\_PUT\_THREAD\_ASLEEP(thread) - thread will be put asleep AFTER SYSCALL ONLY! In fact this one can't be used!
