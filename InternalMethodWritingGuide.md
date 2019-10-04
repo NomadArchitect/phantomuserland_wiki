@@ -2,15 +2,21 @@
 
 See also: [[InternalClasses]]
 
-Syscall is a method of internal class. It is called as usual method (at least all the conversion is hidden).
-
-Syscall is supposed to return one object or return nothing. Syscall can throw an exception.
-
+Syscall is a method of internal class. It is called as usual method (at least all the conversion is hidden). 
+Syscall is supposed to return one object or return nothing. Otherwise it can throw an exception.
 Syscall is supposed to decrement refcount for its object arguments or save/pass them along.
 
-Q: what about 'this'?
+Every syscall is implemented wit a C function.
 
-Call parameters: 'this' object, current thread object [[DataArea]] pointer.
+C function parameters: 
+* pvm_object_t me - 'this' object
+* pvm_object_t *ret - place for an object to return
+* struct data_area_4_thread *tc - current thread object [[DataArea]] pointer
+* int n_args - number of args passed
+* pvm_object_t *args - args
+
+C function implementing syscall must return 1 on success or 0 to throw an exception. In this case *ret parameter
+is not a syscall return value, it is an object we throw.
 
 ## Helpers ##
 
