@@ -163,6 +163,9 @@ It is possible to pass parameters to sys on int stack and receive some return th
 
 Generally, sys is used as the only content of internal class methods.
 
+Current implementation of '''sys''' is restartable: if '''sys''' is interrupted (snapshot happens ans OS is rebooted),
+it will be run once again. Note that for that to be possible, C code implementing '''sys''' must be running between
+```vm_unlock_persistent_memory()``` and ```vm_lock_persistent_memory()``` calls.
 
 '''dynamic_invoke'''
 
