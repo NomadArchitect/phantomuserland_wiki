@@ -18,35 +18,25 @@ Call parameters: 'this' object, current thread object [[DataArea]] pointer.
   * SYSCALL\_RETURN\_NOTHING - just return (null object will be returned, in fact)
   * SYSCALL\_THROW(obj) - return by throwing an exception
   * SYSCALL\_THROW\_STRING(str) - shortcut, accepts C string as arg
-  * POP\_ARG - returns next arg. pop in reverse order!
-  * POP\_ISTACK - istack has just one arg - number of objects passed
-  * POP\_INT() - pops object and converts it to C integer, with type check
-  * POP\_STRING() - pops object and converts it to string da ptr, with type check
-  * CHECK\_PARAM\_COUNT(n\_param, must\_have) - throws a message if !=
+  * AS\_INT() - converts object it to C integer, with type check
+  * CHECK\_PARAM\_COUNT(must\_have) - throws a message if parameter count is wrong
   * ASSERT\_STRING(obj) - throws, if not a string object
   * ASSERT\_INT(obj) - throws, if not an int object
   * DEBUG\_INFO - in debug mode prints call info
 
 # Example #
 
-```
-static int si_string_8_substring(struct pvm_object me, struct data_area_4_thread *tc )
+```c
+static int si_string_8_substring( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
 {
     DEBUG_INFO;
-    ASSERT_STRING(me); // Make sure this is string
-    struct data_area_4_string *meda = pvm_object_da( me, string ); // get pointer to my DataArea
+    ASSERT_STRING(me);
+    struct data_area_4_string *meda = pvm_object_da( me, string );
+    
+    CHECK_PARAM_COUNT(2);
 
-    int n_param = POP_ISTACK; // Pop integer from integer stack - parameter count is there
-    CHECK_PARAM_COUNT(n_param, 2); // Throw exception if there are not 2 parameters
-
-    struct pvm_object _len = POP_ARG; // Pop parameter off object stack
-    ASSERT_INT(_len); // Make sure it's type is integer, throw exception if not
-    int parmlen = pvm_get_int(_len);
-
-    struct pvm_object _index = POP_ARG;
-    ASSERT_INT(_index);
-    int index = pvm_get_int(_index);
-
+    int parmlen = AS_INT(args[1]);
+    int index = AS_INT(args[0]);
 
     if( index < 0 || index >= meda->length )
         SYSCALL_THROW_STRING( "string.substring index is out of bounds" );
@@ -57,9 +47,8 @@ static int si_string_8_substring(struct pvm_object me, struct data_area_4_thread
     if( len < 0 )
         SYSCALL_THROW_STRING( "string.substring length is negative" );
 
-    SYSCALL_RETURN(pvm_create_string_object_binary( meda->data + index, len ));
+    SYSCALL_RETURN(pvm_create_string_object_binary( (char *)meda->data + index, len ));
 }
-
 ```
 
 # Outdated, do not use #
