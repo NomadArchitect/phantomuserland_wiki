@@ -2,7 +2,7 @@
 This document describes phantom virtual machine as implemented at this moment, 23 February 2016.
 
 
-Copyright © 2004-2016 Dmitry Zavalishin, dz@dz.ru
+Copyright © 2004-2019 Dmitry Zavalishin, dz@dz.ru
 
 == Structure ==
 Phantom virtual machine is a classical stack-based thing. Four stacks exist. See [[VmStacks]] for details.
@@ -21,7 +21,7 @@ There are threads, however, and technically it is possible to associate some dat
 Thread can be used to reach outside – it can provide executing objects with links to other system resources. No global way to get them exists, so that one can create a thread which will receive partial access to system resources or will get some special/individual replacements for them.
 
 
-The only global stuff accessible to any code is classes of the most general things: integer, string, code object, interface object and object of class “class”. The last one is class for objects, representing class. It can be used to create a new class in runtime.
+The only global stuff accessible to any code is classes of the most general things: integer, string, code object, interface object and object of class “class”. The last one is class for objects, representing class. (It can be used to create a new class in runtime if future versions.)
 
 
 There are two kinds of classes in phantom: general and internal ones. Objects of general classes contain object references '''only'''. Internal class objects can hold some other kind of value, and their methods are implemented in kernel.
@@ -33,9 +33,7 @@ Here are virtual machine instructions described on assembler (phantasm) language
 === Strange stuff ===
 '''nop'''
 
-
 No operation. This operation does completely nothing.
-
 
 '''debug'''
 
