@@ -11,22 +11,27 @@ last position.
 
 ## Solution
 
-`.internal.connection` class provides `block()` method which is only one that can block 
-in Phantom kernel. Here is the way it works:
+The ```opcode_sys``` instruction of VM is restartable.
 
-* VM program calls `block()` method, which is in internal class `.internal.connection`.
+Here is the way it works:
+
+* VM program calls method of .internal class.
 * Method code consists of one instruction - `sys <syscall number>`
-* Instruction causes VM interpreter to call vm_syscall_block() function in kernel (snap_sync.c)
 
-The vm_syscall_block() in order:
+Executing this instruction VM:
 
 * Reads and stores method args from stack.
 * Restores stack state as it was before `sys` instruction was executed.
 * Moves VM IP back to the beginning of `sys` instruction
-* Revokes access to object memory, letting snapshots to happen
 * Calls kernel code to execute required function
 
-Now two scenarios are possible.
+Now three scenarios are possible.
+
+**Code implementing method does not block.**
+
+It just returns to VM soon.
+
+In other two cases kernel code revokes access to object memory by calling ```do_vm_unlock_persistent_memory()```, letting snapshots to happen.
 
 **Kernel is running uninterrupted until kernel code is done and returned.** 
 
