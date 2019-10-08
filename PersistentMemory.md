@@ -4,6 +4,8 @@ Main task of Phantom's kernel is providing a persistent environment for a virtua
 
 Such an environment consists of two things: persistent memory (VM lives in it) and persistent objects connecting VM to kernel.
 
+See also: [[PhantomArchitecture]], [[SnapSync]], [[KernelMemoryMap]], [[BlockingSyscalls]]
+
 ## Persistent memory
 
 Persistent memory is, most of the time, quite usual virtual (paged) memory. On 32 bit Intel it takes upper 2GB of address space and is backed by Phantom disk.
