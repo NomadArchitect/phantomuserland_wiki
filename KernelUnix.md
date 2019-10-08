@@ -55,3 +55,12 @@ Second is direct access to binary/string (byte stream) object contents. Possible
 
   1. mapping to a segment, use of FS/GS - easy, but intel-specific
   1. mapping with mmap to process AS. much better and is in sync with object access via file descriptors
+
+## Possible private address spaces architecture
+
+Goal is to have private address space for Unix process which is contiguous, but maps inside one or many Phantom objects (possibly carrying code and data segments, .so, memory mapped objects, etc).
+
+Possible architecture is to have thread specific page remapping table, which tells virtual memory subsystem that page N in current address space maps to page M in big persistent address space.
+
+Practically it means that paging code must calculate virtual address for current page indirectly, via remapping table.
+
