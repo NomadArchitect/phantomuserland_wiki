@@ -1,5 +1,6 @@
 Parts:
 * [[Kernel]]
+* [[PersistentMemory]]
 * [[VirtualMachine]]
 * [[PhantomLanguageCompiler]]
 * [[Bytecode]]
