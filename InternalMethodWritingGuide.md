@@ -20,14 +20,15 @@ is not a syscall return value, it is an object we throw.
 
 ## Helpers ##
 
-  * SYSCALL\_RETURN(obj) - return object
+  * SYSCALL\_RETURN(pvm_object_t obj) - return object
+  * SYSCALL\_RETURN\_STRING(const char *str) - return string
   * SYSCALL\_RETURN\_NOTHING - just return (null object will be returned, in fact)
-  * SYSCALL\_THROW(obj) - return by throwing an exception
-  * SYSCALL\_THROW\_STRING(str) - shortcut, accepts C string as arg
-  * AS\_INT() - converts object it to C integer, with type check
-  * CHECK\_PARAM\_COUNT(must\_have) - throws a message if parameter count is wrong
-  * ASSERT\_STRING(obj) - throws, if not a string object
-  * ASSERT\_INT(obj) - throws, if not an int object
+  * SYSCALL\_THROW(pvm_object_t obj) - return by throwing an exception
+  * SYSCALL\_THROW\_STRING(const char *str) - shortcut, accepts C string as arg
+  * AS\_INT(pvm_object_t obj) - converts object it to C integer, with type check
+  * CHECK\_PARAM\_COUNT(int must\_have) - throws a message if parameter count is wrong
+  * ASSERT\_STRING(pvm_object_t obj) - throws, if not a string object
+  * ASSERT\_INT(pvm_object_t obj) - throws, if not an int object
   * DEBUG\_INFO - in debug mode prints call info
 
 ## Example ##
