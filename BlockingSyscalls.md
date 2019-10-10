@@ -46,3 +46,8 @@ In other two cases kernel code revokes access to object memory by calling ```do_
 * VM interpreter restarts thread and finds itself in front of a `sys` instruction, which caused all that.
 * Execution of `sys` instruction is restarted from scratch.
 
+## Rules
+
+ * VM interpreter or JIT code must NOT call ```do_vm_unlock_persistent_memory()``` if state is NOT completely stored in memory. It can be called ONLY on the instructions border with all intermediate state is saved in persistent RAM. Not CPU registers, not local caches, not kernel. Assume that call to ```do_vm_unlock_persistent_memory()``` is like ```longjmp()``` to the entry point of interpreter.
+
+ * If kernel accesses objects such objects must be added to restart list to be refdec'ed and killed on restart.
