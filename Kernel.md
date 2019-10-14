@@ -13,6 +13,7 @@
  * [[KernelDrivers]] - drivers infrastructure and services
  * [[KernelPrint]] - kernel printing/logging
  * [[KernelDiskIO]] -- kernel block io subsystem
+ * [[KernelEncoding]] -- the way we work with characters and strings
 
 ## Architecture specific ##
 
