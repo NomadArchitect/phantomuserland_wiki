@@ -1,8 +1,17 @@
+## To start
+
+* Check project out: ```git clone https://github.com/dzavalishin/phantomuserland.git```
+* Please read TOOLCHAIN.md in root directory
+* Make sure it builds: set ```PHANTOM_HOME``` env var, bring all required tools, make
+* Make sure it runs, see [[Running]]
+
+## What to do
+
 You can help Phantom in a different ways.
 
 Even reading Wiki and asking questions about Phantom architecture will help to make documentation better.
 
-It is a good idea to:
+### It is a good idea to
 
 * Browse Wiki: [[Home]]
 * Look at [[RoadMap]]
@@ -11,19 +20,19 @@ It is a good idea to:
 
 Very good start is to do some code review for the part you want to work on, and, possibly, to write some regression tests for it.
 
-Some possible tasks:
+### Some possible tasks
 
-  * Java to Phantom compiler
-  * Java lib (GNU ClassPath port)
   * Tests!
   * AHCI driver
   * Virtio disk/net drivers
-  * USB HC drivers
   * ARM port, MIPS port
+  * USB HC drivers
+  * Java to Phantom compiler
+  * Java lib (GNU ClassPath port)
 
 All of that is partially done, and needs to be either finished or fixed.
 
-General directions to move:
+### General directions to move
 
   * drivers: as usual, we need more and more of them. Some drivers exist and have to be tuned/fixed, some need to be written. Disk io, USB, video accelerators are good examples. Non-PC drivers are welcome as well.
 
