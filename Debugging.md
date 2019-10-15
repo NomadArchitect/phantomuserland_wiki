@@ -57,7 +57,9 @@ Please note macros in '''gdbmacros''' file (oldtree/kernel/phantom).
 
 ### PDB Phantom Debugger
 
-There is a Java application in tools/pdb, which can connect to running '''pvm_test''' 
+Work in progress.
+
+There is going to be an Java application in tools/pdb, which can connect to running '''pvm_test''' 
 (and should be able to connect to running kernel also) and let one to browse persistent 
 memory objects.
 
