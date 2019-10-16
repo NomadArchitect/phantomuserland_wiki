@@ -1,3 +1,6 @@
+## 2019.10.17 - More UI progress
+![](https://github.com/dzavalishin/phantomuserland/blob/controls/doc/images/phantom_screen_17_10_2019.png)
+
 ## 2019.10.07 - TrueType fonts and new UI ##
 ![](https://github.com/dzavalishin/phantomuserland/blob/master/doc/images/phantom_screen_08_10_2019_new_UI.png?raw=true)
 
