@@ -4,6 +4,7 @@ Welcome to the phantomuserland wiki!
 Brief directory:
 
  * [[PhantomArchitecture]] - Overview
+ * [[ChangeLog]] - See what's going on
  * [[HowToTakePart]] - Welcome onboard!
  * [[RoadMap]] - General task list
  * [[Kernel]] - Kernel design and programming howto articles
