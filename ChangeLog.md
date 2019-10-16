@@ -60,6 +60,7 @@ send objects over the network from one Phantom to other.
 * Args for if/while/for cast expression to integer.
 * Fixed storage of long/float/double to be in numeric, not object stack. Speed up.
 * Generate constructor if no one. Call parent constructor.
+* Constructor parameters
 
 ## SnapShot subsystem
 
@@ -68,6 +69,19 @@ system spent more than 400 snapshots and 100 abrupt reboots with no degradation 
 
 Details are under the [[PersistentMemory]] article. If you need more info, drop me an issue.
 
+Minor fix - kernel now can switch to previous snapshot if last one is broken. Reliability.
 
+## Userland and around
+
+As a result of a new snap sync architecture decided to kill .internal.connection stuff and return to 
+more of internal classes as a way to communicate between userland and kernel.
+
+Added new and good JSON parser and a connection to it from object land. Now can do a HTTP request, get
+and parse returned JSON. As an example use Yandex weather API.
+
+Minor object land stuff:
+
+* atoi/atol
+* object land mutex/cond, not really tested though
 
 
