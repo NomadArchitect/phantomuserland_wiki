@@ -22,7 +22,8 @@ Very good start is to do some code review for the part you want to work on, and,
 
 ### Some possible tasks
 
-  * Tests!
+  * Tests - [list of places that need test](https://github.com/dzavalishin/phantomuserland/labels/Need-Test)
+  * Help with actual work - [work in progress](https://github.com/dzavalishin/phantomuserland/labels/In-Progress)
   * AHCI driver
   * Virtio disk/net drivers
   * ARM port, MIPS port
