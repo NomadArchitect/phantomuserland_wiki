@@ -53,4 +53,4 @@ Quite crirtical tasks.
 
 # Later... #
 
-  * **Python compiler**. Seems to be a good possible object env shell and common scripting language. Or shall it be Ruby instead?
+  * **Python compiler**. Seems to be a good possible object env shell and common scripting language. Or shall it be Ruby instead? Or maybe do something strange and do own scripting language (Maybe better because direct control over how it works and better optimization)? 
