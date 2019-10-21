@@ -9,6 +9,7 @@ Currently it  looks like this:
 What's new:
 
 * **Button/menu item/radio/checkbox controls**
+* **Context menu for windows and controls**
 * Groups of controls (radio, but can group usual buttons too)
 * Alpha blending for bitmaps - need it to paint control backgrounds
 * Controls generate events and can call callbacks
