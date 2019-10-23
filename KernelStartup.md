@@ -45,7 +45,7 @@ Current kernel looks for Phantom formatted fs as whole disk or partition of type
 
 ## Drivers ##
 
-See tables in driver\_map.c and kernel/ia32/board/**.c - ISA drivers are probed, PCI are started by looking up PCI config and looking up drivers by PCI codes. Drivers are started in 4 stages, se main.c**
+See tables in driver\_map.c and kernel/ia32/board/**.c - ISA drivers are probed, PCI are started by looking up PCI config and looking up drivers by PCI codes. Drivers are started in 4 stages, see main.c**
 
 ```
     // Stage is:
@@ -62,9 +62,11 @@ See video.c
 
 Two paths:
   * VESA - if VESA is found, VESA driver is enforced. That's wrong, surely.
-  * Else, all the videodrivers are called to probe hw and tell which resolution they can give. Biggest one is selected.
+  * Else, all the video drivers are called to probe hw and tell which resolution they can give. Biggest one is selected.
+  * The best video driver is selected and started.
+  * After all, we scan drivers again to find out if one of them can do HW acceleration.
 
-TODO: boot flag to force VESA, boot parameter to limit resolution.
+There are boot flags to force or disable VESA.
 
 
 ## Unix subsystem ##
@@ -79,20 +81,20 @@ If FAT/FAT32 disk is found, it is mounted as /amnt[0-9] and /amntX/bin/sh is exe
 
 See pvm\_root\_init()
 
-In signle thread:
+In single thread:
   * On first start boot code is run.
   * On subsequent starts - calls restart code for border objects.
 
 Multithread mode is started after single thread phantom code is finished.
 
 In multithread:
-  * all the rest is run.
+  * All the rest is run. Namely, all usermode threads.
 
 ## First run ##
 
 See vm/root.c, pvm\_boot()
 
-On the first run kernel 'manually' builds minimal object environment (class/int/string/... classes), loads '.ru.dz.phantom.system.boot' class (if not overriden from kernel command line), and starts VM thread to run it. All the threads run from boot code will be registered, but not started until boot code is over. Finish of the boot code lets OS to start all the VM threads.
+On the first run kernel 'manually' builds minimal object environment (class/int/string/... classes), loads '.ru.dz.phantom.system.boot' class (if not overridden from kernel command line), and starts VM thread to run it. All the threads run from boot code will be registered, but not started until boot code is over. Finish of the boot code lets OS to start all the VM threads.
 
 NB: On this run root array of special references is built. These references are used by kernel on subsequent starts to reach specific objects in object space, such as list of all VM threads, etc.
 
