@@ -31,15 +31,10 @@ TODO. Supposedly:
 
 min neg - 0 = kernel
 
-## Problems ##
-
-  * Videomem does not work if mapped not identically.
-
 ## Memory TODO ##
 
-
   * [KernelVM86](KernelVM86.md) is implemented and does some low mem access. Document it!
-  * Page 0 - unmap to catch null ptr accesses.
+  * Page 0 - unmap to catch null ptr accesses - DONE.
   * POSIX code - CS/DS segments mapped to binary objects
 
 ## To think about ##
