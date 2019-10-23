@@ -1,3 +1,37 @@
+# Memory allocators and management
+
+
+## Low level physical RAM allocator
+
+See `physalloc.c`
+
+Has two parts on ia32 - one is used to allocate low 1mb memory and used in a very special situations like in [KernelVM86](KernelVM86.md) support code. Main one allocates RAM which is not statically assigned to kernel image (everything above it). Allocation is in page size increments.
+
+This allocator is used by kernel heap allocator to replentish heap, and directly by users which need page-aligned RAM (for phys-level access, usually).
+
+## Kernel heap allocator
+
+See `heap.c` 
+
+Takes mem from page-level allocator, maps it above kernel end and below 0x40000000. Usual malloc/free.
+
+
+## Persistent memory management
+
+Zone at 0x80000000 - 0xC0000000. Mapping to real memory (which is allocated from 1 above) and disk IO is provided by vm\_map.c. This memory belongs to main (object-level) part of OS, and is allocated/freed by VM allocator/GC. No pointer from this part can look to some other memory space.
+
+TODO: run vm interpreter/jit code in user mode with access to lower kernel mem restricted.
+
+## Address space allocator
+
+See `physalloc.c`
+
+On ia32 0x40000000 - 0x80000000 zone is pure address space (unmapped at kernel start) and is used to map memory-accessed devices (namely, APIC), video RAM, temp buffers, etc. Usually memory allocated from low-level page allocator is mapped here by owner.
+
+NB! How to map device memory: use page\_map\_io parameter, see hal.h
+
+
+
 ## IA32 Memory Map ##
 
 
@@ -41,21 +75,3 @@ min neg - 0 = kernel
 
 Interpreter code in a special segment?
 
-## Memory control structure ##
-
-This is how it should be, not how it is. We're implementing now what is described here.
-
-1. Low level phys RAM allocator. Has two parts on ia32 - one is used to allocate low 1mb memory and used in a very special situations like in [KernelVM86](KernelVM86.md) support code. Main one allocates RAM which is not statically assigned to kernel image (everything above it). Allocation is in page size increments.
-
-This allocator is used by kernel heap allocator to replentish heap, and directly by users which need page-aligned RAM (for phys-level access, usually).
-
-2. Kernel heap allocator. Takes mem from page-level allocator, maps it above kernel end and below 0x40000000. usual malloc/free.
-
-
-3. Persistent memory at 0x80000000 - 0xC0000000. Mapping to real memory (which is allocated from 1 above) and disk IO is provided by vm\_map.c. This memory belongs to main (object-level) part of OS, and is allocated/freed by VM allocator/GC. No pointer from this part can look to some other memory space.
-
-TODO: run vm interpreter/jit code in user mode with access to lower kernel mem restricted.
-
-4. Addres space allocator. 0x40000000 - 0x80000000 zone is pure address space (unmapped at kernel start) and is used to map memory-accessed devices (namely, APIC), video RAM (NB! - we have a problem here noww, and VRAM is mapped directly, which means it leaves in object mem space now), temp buffers, etc. Usually memory allocated from low-level page allocator is mapped here by owner.
-
-NB! How to map device memory: use page\_map\_io parameter, see hal.h
