@@ -64,3 +64,16 @@ There is going to be an Java application in tools/pdb, which can connect to runn
 memory objects.
 
 See '''phantom/vm/gdb.c''' for connector.
+
+### Debug functions in kernel
+
+`pvm_scan_print_subtree( pvm_object_t start, int max_depth )` - find out ref counts on object tree
+
+`debug_catch_object()` - catch object by address on alloc or free.
+
+`pvm_memcheck()` - check persistent allocation consistency.
+
+`alloc_print_arenas()` - print alloc arenas info
+
+### Debug tools in kernel
+
