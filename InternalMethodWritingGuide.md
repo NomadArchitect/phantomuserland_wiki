@@ -87,9 +87,13 @@ vm_lock_persistent_memory();
 ## Checklist to create internal class
 
 sys/i_CLASSNAME.{c,h}
+
 internal.c - descriptor
+
 root.h - add CLASSNAME_class to pvm_root_t, #define PVM_ROOT_OBJECT_???_CLASS <next num>
-root.c - 
+
+root.c 
+
  - set_root_from_table():     SET_ROOT_CLASS(classname,CLASSNAME);
  - define pvm_get_XXX_class()
 
