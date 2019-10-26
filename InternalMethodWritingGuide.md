@@ -22,6 +22,7 @@ is not a syscall return value, it is an object we throw.
 
   * SYSCALL\_RETURN(pvm_object_t obj) - return object
   * SYSCALL\_RETURN\_STRING(const char *str) - return string
+  * SYSCALL\_RETURN\_INT(int retval) - return integer
   * SYSCALL\_RETURN\_NOTHING - just return (null object will be returned, in fact)
   * SYSCALL\_THROW(pvm_object_t obj) - return by throwing an exception
   * SYSCALL\_THROW\_STRING(const char *str) - shortcut, accepts C string as arg
@@ -82,6 +83,15 @@ for(...)
 
 vm_lock_persistent_memory();
 ```
+
+## Checklist to create internal class
+
+sys/i_CLASSNAME.{c,h}
+internal.c - descriptor
+root.h - add CLASSNAME_class to pvm_root_t, #define PVM_ROOT_OBJECT_???_CLASS <next num>
+root.c - 
+ - set_root_from_table():     SET_ROOT_CLASS(classname,CLASSNAME);
+ - define pvm_get_XXX_class()
 
 
 ## Outdated, do not use ##
