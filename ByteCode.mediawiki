@@ -2,7 +2,7 @@
 This document describes phantom virtual machine as implemented at this moment, 23 February 2016.
 
 
-Copyright © 2004-2019 Dmitry Zavalishin, dz@dz.ru
+This article is a bit outdated, please refer to Byte Code section of online documentation for latest information: https://phantomdox.readthedocs.io/en/latest/#byte-code-reference
 
 == Structure ==
 Phantom virtual machine is a classical stack-based thing. Four stacks exist. See [[VmStacks]] for details.
