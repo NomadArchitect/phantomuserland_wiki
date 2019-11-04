@@ -90,6 +90,10 @@ sys/i_CLASSNAME.{c,h}
 
 internal.c - descriptor
 
+vm/internal.h - DEF_I(name)
+
+
+
 root.h - add CLASSNAME_class to pvm_root_t, #define PVM_ROOT_OBJECT_???_CLASS <next num>
 
 root.c 
