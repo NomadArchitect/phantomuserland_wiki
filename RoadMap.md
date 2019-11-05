@@ -10,12 +10,12 @@ Quite crirtical tasks.
 |Topic|State|
 |:------------------------------------------------------------------------------------------------------------------------------|:-----------------|
 | **Java bytecode compiler**. Currently can compile very simple code. Need complete compiler and classpath. At least to the level where simple Web server can be implemented. See [Java-Compiler-0.5 milestone](https://github.com/dzavalishin/phantomuserland/milestones/Java-Compiler-0.5)| **Hi priority.** |
-|**Hosted test env. multithreading**. Port existing threads lib to work in unix userland/cygwin.|**In progress**|
-|**Hosted test env. TCP access**.|Ditto.|
+|**Hosted test env. multithreading**. Port existing threads lib to work in unix userland/cygwin.|**Debugging**|
+|**Hosted test env. TCP access**.|In progress.|
 |Windowing events, input, event thread pools. Need userland iface. Need code cleanup.|**In progress**|
-|**VM and compiler support for floats/doubles/64 bit ints**.|**In progress**|
+|**VM and compiler support for floats/doubles/64 bit ints**.|**Mostly done**|
 |**More of Phantom language implementation in compiler**. Closures, direct containers support.|Actual?|
-|**VmWeakRef** - stuck with synchronization!|**In progress**|
+|**VmWeakRef** - stuck with synchronization!|**Deferred**|
 |**Border objects and restart exceptions**. Especially for TCP interfaces. Depends on weakrefs!|**Nearly done**|
 
 
@@ -28,7 +28,7 @@ Quite crirtical tasks.
 |**IP stack tests and userland interface**.|- |
 |**ARM port**. Machdep code and some drivers are done.|In progress|
 |**Partition lookup code**. |PC partitions implemented. EFI?|
-|**Disk selection**. Right now Phantom looks for its disk in hardcoded places. Partitioning system reckognizes Phantom partitions and disks. Has to be connected to pager.|Done.|
+|**Disk selection**. Right now Phantom looks for its disk in hardcoded places. Partitioning system recognizes Phantom partitions and disks. Has to be connected to pager.|Done.|
 
 ## Far Goals ##
 
@@ -47,7 +47,7 @@ Quite crirtical tasks.
   * **Doxygen**. And code documentation too.
   * **Test suite**, regular regression test setup. **mostly ok**
   * **Code review**. Need code review process to be set up and carried.
-  * **Good internal document(s) on development process**. For new members to jump in easily.
+  * **Good internal document(s) on development process**. For new members to jump in easily. Here is it: <https://phantomdox.readthedocs.io/en/latest/>
   * **Define branching/merging rules**. We will have to have release branches.
 
 
