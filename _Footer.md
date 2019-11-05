@@ -1,1 +1,1 @@
-:: [[Home]] :: [[RoadMap]] :: [[History]] :: [[ChangeLog]] :: [[ScreenShots]]
+:: [[Home]] :: [[RoadMap]] :: [[History]] :: [[ChangeLog]] :: [[ScreenShots]] :: [Phantom Developer's Guide](https://phantomdox.readthedocs.io/en/latest/)
