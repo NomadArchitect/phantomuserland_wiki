@@ -1,4 +1,4 @@
-[Developer's Guide](https://phantomdox.readthedocs.io/en/latest/)
+**[Developer's Guide](https://phantomdox.readthedocs.io/en/latest/)**
 
 Parts:
 * [[Kernel]]
