@@ -1,3 +1,5 @@
+Please take a look at the **[book on Phantom OS internals](https://phantomdox.readthedocs.io/en/latest/)** for more detailed description.
+
 ![https://github.com/dzavalishin/phantomuserland/blob/master/doc/diagrams/Phantom_Structure.png?raw=true](https://github.com/dzavalishin/phantomuserland/blob/master/doc/diagrams/Phantom_Structure.png?raw=true)
 
 ## General ##
