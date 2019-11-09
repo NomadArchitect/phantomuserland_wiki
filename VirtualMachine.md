@@ -15,3 +15,5 @@
  * [[SnapSync]] - synchronisation gear to prevent object space modification during snapshot
  * [[BlockingSyscalls]] - interaction between snapshot and long calls from VM to kernel
 
+Please take a look at the **[book on Phantom OS internals](https://phantomdox.readthedocs.io/en/latest/)** for more detailed description.
+
