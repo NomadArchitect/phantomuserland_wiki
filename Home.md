@@ -1,6 +1,6 @@
 Welcome to the phantomuserland wiki!
 
-**[Please take a look at the book on Phantom OS internals](https://phantomdox.readthedocs.io/en/latest/)**
+Please take a look at the **[book on Phantom OS internals](https://phantomdox.readthedocs.io/en/latest/)** for more detailed description.
 
 Brief directory:
 
