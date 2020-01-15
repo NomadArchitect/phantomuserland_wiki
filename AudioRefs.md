@@ -1,5 +1,12 @@
 ## Audio HW info
 
+### SB
+
+<http://www.sources.ru/pascal/sound/sb16fd.htm>
+<http://www.sources.ru/pascal/sound/sb_dpmi.htm>
+
+### etc
+
 <https://github.com/zhibma/minix/blob/03ac74ede908465cc64c671bbd209e761dc765dc/minix/drivers/audio/cmi8738/cmi8738.c>
 <https://github.com/zhibma/minix/blob/03ac74ede908465cc64c671bbd209e761dc765dc/minix/drivers/audio/cmi8738/io.h>
 <https://github.com/DD2497/minix/blob/c091b9b052d500d8fa5f41dd6ac6a87ec207ca06/minix/drivers/audio/cmi8738/mixer.h>
