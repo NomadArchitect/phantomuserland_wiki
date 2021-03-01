@@ -9,7 +9,7 @@ virtual memory. Part of the VM classes (some classes, called 'internal') are
 implemented in kernel, giving VM code access to low level kernel services.
 Persistent virtual memory is completely orthogonal to object space and VM
 (no relation between, for example, object boundary and virtual memory page,
-etc.) and is implemented so that abrupt computer failure or loss of power
+etc.) is implemented so that abrupt computer failure or loss of power
 leaves system in coherent state. On the application code (VM bytecode) level
 OS shutdown (either manual or caused by failure) is not even 'seen' - applications
 and their data are 'never die', they continue their work after the next OS
