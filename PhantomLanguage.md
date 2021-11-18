@@ -299,7 +299,7 @@ class <class-name> {<extends-implements>}
 };
 ```
 
-``
+```
 <extends-implements> ::= <extends> | <implements>
 
 <extends> ::= extends <class-name>
@@ -311,9 +311,9 @@ class <class-name> {<extends-implements>}
 
 Construction [<integer>] after arguments is used to define which ordinal number precisely this method will get.
 
-``
+```
 package <package-name>;
-``
+```
 
 Defines current source file as a component of a named package. It is not required. If package is not defined, all class definitions must use absolute class names (starting with point).
 
