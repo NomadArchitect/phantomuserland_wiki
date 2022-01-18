@@ -54,3 +54,9 @@ Quite crirtical tasks.
 # Later... #
 
   * **Python compiler**. Seems to be a good possible object env shell and common scripting language. Or shall it be Ruby instead? Or maybe do something strange and do own scripting language (Maybe better because direct control over how it works and better optimization)? 
+
+# More... #
+
+  * Phantom over Genode <https://github.com/S7rizh/phantomuserland>
+  * Phantom/Genode build env <https://github.com/dzavalishin/phantom_build_env>
+
